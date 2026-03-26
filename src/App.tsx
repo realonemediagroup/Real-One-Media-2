@@ -1,11 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Mic, PenTool, ArrowRight, Menu, X, Video, Headphones, Palette } from 'lucide-react';
+import { Play, Mic, PenTool, ArrowRight, Menu, X, Video, Headphones, Palette, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import Map, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { motion, AnimatePresence } from 'motion/react';
+
+const testimonials = [
+  {
+    id: 1,
+    quote: "ROMG took our music video to the next level. The production quality and attention to detail were unmatched. They truly understood our vision.",
+    author: "Marcus T.",
+    role: "Independent Artist"
+  },
+  {
+    id: 2,
+    quote: "The audio engineering team at ROMG is incredible. My tracks have never sounded so clear and punchy. Highly recommend their mixing and mastering services.",
+    author: "Sarah J.",
+    role: "Producer"
+  },
+  {
+    id: 3,
+    quote: "We needed a complete rebrand, and ROMG delivered beyond our expectations. The graphic design work was fresh, modern, and perfectly aligned with our brand identity.",
+    author: "David L.",
+    role: "Creative Director"
+  }
+];
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -205,6 +236,75 @@ export default function App() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full overflow-hidden">
+        <div className="text-center mb-16">
+          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">What people say.</h2>
+          <p className="text-muted text-lg max-w-2xl mx-auto">Don't just take our word for it. Hear from the artists and brands we've worked with.</p>
+        </div>
+
+        <div className="relative max-w-4xl mx-auto">
+          <div className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 z-10">
+            <button 
+              onClick={prevTestimonial}
+              className="w-12 h-12 rounded-full bg-[#171717] border border-white/10 flex items-center justify-center text-white hover:text-accent hover:border-accent transition-colors"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft size={24} />
+            </button>
+          </div>
+
+          <div className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 z-10">
+            <button 
+              onClick={nextTestimonial}
+              className="w-12 h-12 rounded-full bg-[#171717] border border-white/10 flex items-center justify-center text-white hover:text-accent hover:border-accent transition-colors"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
+
+          <div className="bg-[#171717] border-thin rounded-3xl p-8 md:p-16 relative overflow-hidden min-h-[300px] flex items-center justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentTestimonial}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="text-center"
+              >
+                <div className="flex justify-center gap-1 mb-8 text-accent">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={20} fill="currentColor" />
+                  ))}
+                </div>
+                <p className="text-xl md:text-3xl font-display font-medium leading-relaxed mb-8">
+                  "{testimonials[currentTestimonial].quote}"
+                </p>
+                <div>
+                  <h4 className="font-bold text-lg">{testimonials[currentTestimonial].author}</h4>
+                  <p className="text-accent text-sm font-medium">{testimonials[currentTestimonial].role}</p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentTestimonial(idx)}
+                className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                  idx === currentTestimonial ? 'bg-accent' : 'bg-white/20 hover:bg-white/40'
+                }`}
+                aria-label={`Go to testimonial ${idx + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
