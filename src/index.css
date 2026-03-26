@@ -7,7 +7,7 @@
   --color-bg: #0A0A0A;
   --color-surface: #171717;
   --color-text: #F9FAFB;
-  --color-accent: #FF4400; /* Vibrant Orange-Red */
+  --color-accent: #00CFFF; /* Neon Blue */
   --color-muted: #9CA3AF;
   --color-border: #262626;
 }
@@ -50,7 +50,7 @@ body {
 
 .nav-pill {
   background-color: var(--color-accent);
-  color: #ffffff;
+  color: #0A0A0A;
   border-radius: 8px;
   padding: 10px 24px;
   font-weight: 600;
@@ -58,7 +58,7 @@ body {
 }
 
 .nav-pill:hover {
-  background-color: #E63D00;
+  background-color: #00B8E6;
   transform: translateY(-1px);
 }
 

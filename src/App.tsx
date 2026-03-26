@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Mic, PenTool, ArrowRight, Menu, X, Video, Headphones, Palette } from 'lucide-react';
+import Map, { Marker } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,9 +22,9 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-accent rounded-md flex items-center justify-center">
-              <span className="font-display font-bold text-white text-xl leading-none">R</span>
+              <span className="font-display font-bold text-[#0A0A0A] text-xl leading-none">R</span>
             </div>
-            <span className="font-display font-bold text-xl tracking-tight">REAL ONE MEDIA</span>
+            <span className="font-display font-bold text-xl tracking-tight">ROMG</span>
           </div>
           
           <div className="hidden md:flex gap-8 text-sm font-medium items-center">
@@ -220,17 +222,18 @@ export default function App() {
         </a>
 
         {/* Map */}
-        <div className="w-full h-[400px] rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-          <iframe 
-            src="https://maps.google.com/maps?q=1812%20Canal%20St.%20Suite%204&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen={false} 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Real One Media Group Location"
-          ></iframe>
+        <div className="w-full h-[400px] rounded-xl overflow-hidden border border-white/10 shadow-2xl relative">
+          <Map
+            mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN || ""}
+            initialViewState={{
+              longitude: -120.4825482,
+              latitude: 37.3025895,
+              zoom: 15
+            }}
+            mapStyle="mapbox://styles/mapbox/dark-v11"
+          >
+            <Marker longitude={-120.4825482} latitude={37.3025895} color="#00CFFF" />
+          </Map>
         </div>
       </section>
 
@@ -240,10 +243,10 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-6 h-6 bg-accent rounded flex items-center justify-center">
-                  <span className="font-display font-bold text-white text-sm leading-none">R</span>
+                <div className="w-8 h-8 bg-accent rounded-md flex items-center justify-center">
+                  <span className="font-display font-bold text-[#0A0A0A] text-xl leading-none">R</span>
                 </div>
-                <span className="font-display font-bold text-lg tracking-tight">REAL ONE MEDIA</span>
+                <span className="font-display font-bold text-xl tracking-tight">ROMG</span>
               </div>
               <p className="text-muted max-w-sm leading-relaxed text-sm">
                 Your go-to creative studio for video production, audio engineering, and graphic design. Built for artists and brands.
@@ -262,7 +265,7 @@ export default function App() {
           </div>
           
           <div className="border-t-thin pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted">
-            <p>© 2026 Real One Media Group. All rights reserved.</p>
+            <p>© 2026 ROMG. All rights reserved.</p>
             <div className="flex gap-6">
               <a href="#" className="hover:text-white transition-colors">Privacy</a>
               <a href="#" className="hover:text-white transition-colors">Terms</a>
