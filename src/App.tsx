@@ -29,9 +29,9 @@ export default function App() {
             <a href="#services" className="hover:text-accent transition-colors duration-200">Services</a>
             <a href="#work" className="hover:text-accent transition-colors duration-200">Our Work</a>
             <a href="#studio" className="hover:text-accent transition-colors duration-200">The Studio</a>
-            <button className="nav-pill">
+            <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill inline-block">
               Let's Work
-            </button>
+            </a>
           </div>
 
           <button 
@@ -49,9 +49,9 @@ export default function App() {
           <a href="#services" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>Services</a>
           <a href="#work" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>Our Work</a>
           <a href="#studio" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>The Studio</a>
-          <button className="nav-pill mt-4">
+          <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill mt-4 inline-block text-center" onClick={() => setIsMenuOpen(false)}>
             Let's Work
-          </button>
+          </a>
         </div>
       )}
 
@@ -82,9 +82,9 @@ export default function App() {
             We are a creative production studio specializing in video, audio recording, and graphic design for recording artists, creators, and businesses.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <button className="nav-pill text-center flex justify-center items-center gap-2">
+            <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill text-center flex justify-center items-center gap-2">
               Book the Studio <ArrowRight size={18} />
-            </button>
+            </a>
             <button className="nav-pill-outline text-center">
               View Our Work
             </button>
@@ -157,47 +157,49 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>
-              <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">Recent Projects.</h2>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">Recent Projects</h2>
               <p className="text-muted text-lg">Check out what we've been working on.</p>
             </div>
-            <button className="text-accent font-medium flex items-center gap-2 hover:underline underline-offset-4">
-              View All Work <ArrowRight size={16} />
-            </button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Project 1 */}
-            <div className="group cursor-pointer">
-              <div className="img-hover-zoom aspect-video mb-5">
-                <img 
-                  src="https://images.unsplash.com/photo-1516280440502-6101901a1e8c?q=80&w=2500&auto=format&fit=crop" 
-                  alt="Music Video Production" 
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
+            <div className="group">
+              <div className="aspect-video mb-5 rounded-xl overflow-hidden border border-white/10 bg-black">
+                <iframe 
+                  className="block w-full h-full"
+                  src="https://www.youtube.com/embed/WnSTm8pUGVk?si=SLeKzJx-W-XeIHVq" 
+                  title="Cesar Olvera Boxing Documentary" 
+                  style={{ border: 0 }}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin" 
+                  allowFullScreen
+                ></iframe>
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-display text-2xl font-bold mb-1 group-hover:text-accent transition-colors">"Midnight" - The Echoes</h3>
-                  <p className="text-muted text-sm">Music Video / Audio Mixing</p>
+                  <h3 className="font-display text-2xl font-bold mb-1 group-hover:text-accent transition-colors">Cesar Olvera Boxing Documentary</h3>
+                  <p className="text-muted text-sm">Video Production</p>
                 </div>
               </div>
             </div>
 
             {/* Project 2 */}
-            <div className="group cursor-pointer">
-              <div className="img-hover-zoom aspect-video mb-5">
-                <img 
-                  src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2500&auto=format&fit=crop" 
-                  alt="Graphic Design Branding" 
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
+            <div className="group">
+              <div className="aspect-video mb-5 rounded-xl overflow-hidden border border-white/10 bg-black">
+                <iframe 
+                  className="block w-full h-full"
+                  style={{ border: 0, borderRadius: 0 }} 
+                  src="https://open.spotify.com/embed/playlist/35Dld8Tw6SxQWdhUgi0nre?utm_source=generator&theme=0" 
+                  allowFullScreen={false} 
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                  loading="lazy"
+                ></iframe>
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-display text-2xl font-bold mb-1 group-hover:text-accent transition-colors">Neon Records</h3>
-                  <p className="text-muted text-sm">Brand Identity / Web Design</p>
+                  <h3 className="font-display text-2xl font-bold mb-1 group-hover:text-accent transition-colors">Mixed by Real One Media</h3>
+                  <p className="text-muted text-sm">Audio Mixing/Recording</p>
                 </div>
               </div>
             </div>
@@ -206,22 +208,36 @@ export default function App() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 md:py-32 px-6 md:px-12 text-center max-w-4xl mx-auto">
+      <section id="studio" className="py-24 md:py-32 px-6 md:px-12 text-center max-w-4xl mx-auto">
         <h2 className="font-display text-4xl md:text-6xl font-bold mb-6">
           Ready to create?
         </h2>
         <p className="text-lg text-muted mb-10 max-w-2xl mx-auto">
           Whether you need a full music video, a studio session, or a fresh logo, our team is ready to help you level up.
         </p>
-        <button className="nav-pill text-lg px-8 py-4">
+        <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill text-lg px-8 py-4 inline-block mb-16">
           Contact Us Today
-        </button>
+        </a>
+
+        {/* Map */}
+        <div className="w-full h-[400px] rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+          <iframe 
+            src="https://maps.google.com/maps?q=1812%20Canal%20St.%20Suite%204&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="100%" 
+            style={{ border: 0 }} 
+            allowFullScreen={false} 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Real One Media Group Location"
+          ></iframe>
+        </div>
       </section>
 
       {/* Footer */}
       <footer className="bg-[#121212] border-t-thin pt-16 pb-8 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-6 h-6 bg-accent rounded flex items-center justify-center">
@@ -241,15 +257,6 @@ export default function App() {
                 <li><a href="#" className="hover:text-accent transition-colors">Studio Recording</a></li>
                 <li><a href="#" className="hover:text-accent transition-colors">Mixing & Mastering</a></li>
                 <li><a href="#" className="hover:text-accent transition-colors">Graphic Design</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-bold mb-4">Connect</h4>
-              <ul className="space-y-3 text-muted text-sm">
-                <li><a href="#" className="hover:text-accent transition-colors">Instagram</a></li>
-                <li><a href="#" className="hover:text-accent transition-colors">YouTube</a></li>
-                <li><a href="#" className="hover:text-accent transition-colors">Email Us</a></li>
               </ul>
             </div>
           </div>
