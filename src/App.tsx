@@ -85,9 +85,9 @@ export default function App() {
             <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill text-center flex justify-center items-center gap-2">
               Book the Studio <ArrowRight size={18} />
             </a>
-            <button className="nav-pill-outline text-center">
+            <a href="#work" className="nav-pill-outline text-center flex justify-center items-center">
               View Our Work
-            </button>
+            </a>
           </div>
         </div>
       </header>
