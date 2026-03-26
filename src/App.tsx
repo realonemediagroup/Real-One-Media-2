@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Mic, PenTool, ArrowRight, Menu, X, ChevronRight } from 'lucide-react';
+import { Play, Mic, PenTool, ArrowRight, Menu, X, Video, Headphones, Palette } from 'lucide-react';
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,21 +14,23 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col selection:bg-[var(--color-accent)] selection:text-black">
+    <div className="min-h-screen flex flex-col selection:bg-[var(--color-accent)] selection:text-white">
       {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-[#050505]/90 backdrop-blur-md border-b-thin py-4' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#0A0A0A]/95 backdrop-blur-md border-b-thin py-4' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-          <div className="flex flex-col">
-            <span className="font-display text-2xl md:text-3xl tracking-wide leading-none">REAL ONE</span>
-            <span className="small-caps text-gold mt-1">Media Group</span>
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-accent rounded-md flex items-center justify-center">
+              <span className="font-display font-bold text-white text-xl leading-none">R</span>
+            </div>
+            <span className="font-display font-bold text-xl tracking-tight">REAL ONE MEDIA</span>
           </div>
           
-          <div className="hidden md:flex gap-12 small-caps items-center">
-            <a href="#expertise" className="hover:text-gold transition-colors duration-300">Expertise</a>
-            <a href="#portfolio" className="hover:text-gold transition-colors duration-300">Portfolio</a>
-            <a href="#atelier" className="hover:text-gold transition-colors duration-300">Atelier</a>
-            <button className="nav-pill small-caps">
-              Commission Us
+          <div className="hidden md:flex gap-8 text-sm font-medium items-center">
+            <a href="#services" className="hover:text-accent transition-colors duration-200">Services</a>
+            <a href="#work" className="hover:text-accent transition-colors duration-200">Our Work</a>
+            <a href="#studio" className="hover:text-accent transition-colors duration-200">The Studio</a>
+            <button className="nav-pill">
+              Let's Work
             </button>
           </div>
 
@@ -36,163 +38,167 @@ export default function App() {
             className="md:hidden text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X size={28} strokeWidth={1} /> : <Menu size={28} strokeWidth={1} />}
+            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </nav>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#050505] flex flex-col justify-center items-center gap-8">
-          <a href="#expertise" className="font-display text-4xl hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Expertise</a>
-          <a href="#portfolio" className="font-display text-4xl hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Portfolio</a>
-          <a href="#atelier" className="font-display text-4xl hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Atelier</a>
-          <button className="nav-pill small-caps mt-8">
-            Commission Us
+        <div className="fixed inset-0 z-40 bg-[#0A0A0A] flex flex-col justify-center items-center gap-8">
+          <a href="#services" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>Services</a>
+          <a href="#work" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>Our Work</a>
+          <a href="#studio" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>The Studio</a>
+          <button className="nav-pill mt-4">
+            Let's Work
           </button>
         </div>
       )}
 
       {/* Hero Section */}
       <header className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-20">
-        <div className="absolute inset-0 z-0 opacity-40">
+        <div className="absolute inset-0 z-0 opacity-30">
           <img 
-            src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=2500&auto=format&fit=crop" 
-            alt="Studio Background" 
+            src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2500&auto=format&fit=crop" 
+            alt="Recording Studio Background" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/80 via-[#050505]/60 to-[#050505]"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/60 to-[#0A0A0A]"></div>
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto w-full">
-          <p className="small-caps text-gold mb-6 md:mb-8 flex items-center gap-4">
-            <span className="w-12 h-[1px] bg-gold"></span>
-            Bespoke Production
-          </p>
-          <h1 className="font-display text-5xl md:text-8xl lg:text-[110px] leading-[0.9] font-light tracking-tight mb-8">
-            Curating visual <br />
-            <span className="italic text-gold">excellence.</span>
+          <div className="inline-block bg-[#171717] border-thin rounded-full px-4 py-1.5 mb-8">
+            <p className="text-sm font-medium flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+              Now booking studio sessions for 2026
+            </p>
+          </div>
+          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 leading-[1.1]">
+            Bring your vision <br />
+            <span className="text-accent">to life.</span>
           </h1>
-          <p className="max-w-xl text-lg md:text-xl font-light leading-relaxed text-muted mb-12">
-            An exclusive media atelier specializing in high-end video, pristine audio engineering, and refined brand identities for the world's most discerning clients.
+          <p className="max-w-2xl text-lg md:text-xl text-muted mb-10 leading-relaxed">
+            We are a creative production studio specializing in video, audio recording, and graphic design for recording artists, creators, and businesses.
           </p>
-          <button className="flex items-center gap-4 group">
-            <span className="small-caps group-hover:text-gold transition-colors">Explore our universe</span>
-            <div className="w-10 h-10 rounded-full border-thin flex items-center justify-center group-hover:border-gold transition-colors">
-              <ArrowRight size={16} className="group-hover:text-gold transition-colors" strokeWidth={1} />
-            </div>
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button className="nav-pill text-center flex justify-center items-center gap-2">
+              Book the Studio <ArrowRight size={18} />
+            </button>
+            <button className="nav-pill-outline text-center">
+              View Our Work
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Expertise Section */}
-      <section id="expertise" className="py-24 md:py-40 px-6 md:px-12 max-w-7xl mx-auto w-full">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-          <div>
-            <p className="small-caps text-gold mb-4">Our Disciplines</p>
-            <h2 className="font-display text-4xl md:text-6xl font-light">Mastery in motion.</h2>
-          </div>
-          <p className="max-w-md text-muted font-light leading-relaxed">
-            We blend technical precision with artistic intuition to craft narratives that resonate on a profound level.
+      {/* Services Section */}
+      <section id="services" className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full">
+        <div className="mb-16 md:mb-24">
+          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">What we do.</h2>
+          <p className="max-w-2xl text-muted text-lg">
+            From the recording booth to the final cut, we provide end-to-end creative services to make you stand out.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {/* Service 1 */}
-          <div className="group">
-            <div className="border-b-thin pb-8 mb-8">
-              <span className="font-display text-5xl text-gold opacity-50 group-hover:opacity-100 transition-opacity">01</span>
+          <div className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300">
+            <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
+              <Video size={28} />
             </div>
-            <h3 className="font-display text-3xl mb-4">Cinematography</h3>
-            <p className="text-muted font-light leading-relaxed mb-8">
-              Commercials, documentaries, and brand films shot with cinematic rigor and unparalleled attention to detail.
+            <h3 className="font-display text-2xl font-bold mb-3">Video Production</h3>
+            <p className="text-muted leading-relaxed mb-6">
+              Music videos, promotional content, and corporate visuals shot and edited to capture your unique energy.
             </p>
-            <ul className="space-y-4 small-caps text-[10px] text-muted">
-              <li className="flex items-center gap-3"><ChevronRight size={14} className="text-gold" /> Art Direction</li>
-              <li className="flex items-center gap-3"><ChevronRight size={14} className="text-gold" /> Film Production</li>
-              <li className="flex items-center gap-3"><ChevronRight size={14} className="text-gold" /> Color Grading</li>
+            <ul className="space-y-3 text-sm font-medium text-gray-300">
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Music Videos</li>
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Brand Promos</li>
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Live Performances</li>
             </ul>
           </div>
 
           {/* Service 2 */}
-          <div className="group">
-            <div className="border-b-thin pb-8 mb-8">
-              <span className="font-display text-5xl text-gold opacity-50 group-hover:opacity-100 transition-opacity">02</span>
+          <div className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300">
+            <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
+              <Headphones size={28} />
             </div>
-            <h3 className="font-display text-3xl mb-4">Sonic Architecture</h3>
-            <p className="text-muted font-light leading-relaxed mb-8">
-              Immersive soundscapes, pristine mixing, and bespoke scoring that elevate the emotional resonance of your brand.
+            <h3 className="font-display text-2xl font-bold mb-3">Audio & Recording</h3>
+            <p className="text-muted leading-relaxed mb-6">
+              Professional studio recording, mixing, and mastering for artists, bands, and podcasters.
             </p>
-            <ul className="space-y-4 small-caps text-[10px] text-muted">
-              <li className="flex items-center gap-3"><ChevronRight size={14} className="text-gold" /> Sound Design</li>
-              <li className="flex items-center gap-3"><ChevronRight size={14} className="text-gold" /> Spatial Audio</li>
-              <li className="flex items-center gap-3"><ChevronRight size={14} className="text-gold" /> Original Composition</li>
+            <ul className="space-y-3 text-sm font-medium text-gray-300">
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Studio Recording</li>
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Mixing & Mastering</li>
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Podcast Production</li>
             </ul>
           </div>
 
           {/* Service 3 */}
-          <div className="group">
-            <div className="border-b-thin pb-8 mb-8">
-              <span className="font-display text-5xl text-gold opacity-50 group-hover:opacity-100 transition-opacity">03</span>
+          <div className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300">
+            <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
+              <Palette size={28} />
             </div>
-            <h3 className="font-display text-3xl mb-4">Visual Identity</h3>
-            <p className="text-muted font-light leading-relaxed mb-8">
-              Sophisticated branding, typography, and design systems crafted for luxury and prestige markets.
+            <h3 className="font-display text-2xl font-bold mb-3">Graphic Design</h3>
+            <p className="text-muted leading-relaxed mb-6">
+              Album art, brand identity, and visual assets that make your project look as good as it sounds.
             </p>
-            <ul className="space-y-4 small-caps text-[10px] text-muted">
-              <li className="flex items-center gap-3"><ChevronRight size={14} className="text-gold" /> Brand Strategy</li>
-              <li className="flex items-center gap-3"><ChevronRight size={14} className="text-gold" /> Typography</li>
-              <li className="flex items-center gap-3"><ChevronRight size={14} className="text-gold" /> Editorial Design</li>
+            <ul className="space-y-3 text-sm font-medium text-gray-300">
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Cover Art</li>
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Logo & Branding</li>
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Social Media Assets</li>
             </ul>
           </div>
         </div>
       </section>
 
-      {/* Portfolio Section */}
-      <section id="portfolio" className="py-24 md:py-40 bg-[#0a0a0a]">
+      {/* Work Section */}
+      <section id="work" className="py-24 md:py-32 bg-[#121212] border-t-thin border-b-thin">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-20">
-            <p className="small-caps text-gold mb-4">Selected Archives</p>
-            <h2 className="font-display text-4xl md:text-6xl font-light">A legacy of elegance.</h2>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">Recent Projects.</h2>
+              <p className="text-muted text-lg">Check out what we've been working on.</p>
+            </div>
+            <button className="text-accent font-medium flex items-center gap-2 hover:underline underline-offset-4">
+              View All Work <ArrowRight size={16} />
+            </button>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Project 1 */}
             <div className="group cursor-pointer">
-              <div className="img-hover-zoom aspect-[4/5] mb-6">
+              <div className="img-hover-zoom aspect-video mb-5">
                 <img 
-                  src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=2488&auto=format&fit=crop" 
-                  alt="Fashion Editorial" 
+                  src="https://images.unsplash.com/photo-1516280440502-6101901a1e8c?q=80&w=2500&auto=format&fit=crop" 
+                  alt="Music Video Production" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-display text-3xl mb-2 group-hover:text-gold transition-colors">Maison Noir</h3>
-                  <p className="small-caps text-muted">Fashion Film & Identity</p>
+                  <h3 className="font-display text-2xl font-bold mb-1 group-hover:text-accent transition-colors">"Midnight" - The Echoes</h3>
+                  <p className="text-muted text-sm">Music Video / Audio Mixing</p>
                 </div>
-                <span className="font-display italic text-xl text-muted">2025</span>
               </div>
             </div>
 
             {/* Project 2 */}
-            <div className="group cursor-pointer md:mt-32">
-              <div className="img-hover-zoom aspect-[4/5] mb-6">
+            <div className="group cursor-pointer">
+              <div className="img-hover-zoom aspect-video mb-5">
                 <img 
-                  src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2832&auto=format&fit=crop" 
-                  alt="Architectural Visualization" 
+                  src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2500&auto=format&fit=crop" 
+                  alt="Graphic Design Branding" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-display text-3xl mb-2 group-hover:text-gold transition-colors">Aura Residences</h3>
-                  <p className="small-caps text-muted">Cinematography & Sound</p>
+                  <h3 className="font-display text-2xl font-bold mb-1 group-hover:text-accent transition-colors">Neon Records</h3>
+                  <p className="text-muted text-sm">Brand Identity / Web Design</p>
                 </div>
-                <span className="font-display italic text-xl text-muted">2026</span>
               </div>
             </div>
           </div>
@@ -200,57 +206,60 @@ export default function App() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 md:py-48 px-6 md:px-12 text-center border-t-thin border-b-thin relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.05)_0%,transparent_70%)]"></div>
-        <div className="relative z-10">
-          <p className="small-caps text-gold mb-8">Initiate a Dialogue</p>
-          <h2 className="font-display text-5xl md:text-8xl font-light mb-12">
-            Let us craft your <br className="hidden md:block" />
-            <span className="italic">masterpiece.</span>
-          </h2>
-          <button className="nav-pill small-caps text-sm px-10 py-4 hover:border-gold hover:bg-gold hover:text-black">
-            Request a Consultation
-          </button>
-        </div>
+      <section className="py-24 md:py-32 px-6 md:px-12 text-center max-w-4xl mx-auto">
+        <h2 className="font-display text-4xl md:text-6xl font-bold mb-6">
+          Ready to create?
+        </h2>
+        <p className="text-lg text-muted mb-10 max-w-2xl mx-auto">
+          Whether you need a full music video, a studio session, or a fresh logo, our team is ready to help you level up.
+        </p>
+        <button className="nav-pill text-lg px-8 py-4">
+          Contact Us Today
+        </button>
       </section>
 
       {/* Footer */}
-      <footer className="pt-24 pb-12 px-6 md:px-12 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-24">
-          <div className="md:col-span-2">
-            <div className="flex flex-col mb-6">
-              <span className="font-display text-3xl tracking-wide leading-none">REAL ONE</span>
-              <span className="small-caps text-gold mt-1">Media Group</span>
+      <footer className="bg-[#121212] border-t-thin pt-16 pb-8 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-6 h-6 bg-accent rounded flex items-center justify-center">
+                  <span className="font-display font-bold text-white text-sm leading-none">R</span>
+                </div>
+                <span className="font-display font-bold text-lg tracking-tight">REAL ONE MEDIA</span>
+              </div>
+              <p className="text-muted max-w-sm leading-relaxed text-sm">
+                Your go-to creative studio for video production, audio engineering, and graphic design. Built for artists and brands.
+              </p>
             </div>
-            <p className="text-muted font-light max-w-sm leading-relaxed">
-              A premier production house dedicated to the art of visual and auditory storytelling for luxury brands globally.
-            </p>
+            
+            <div>
+              <h4 className="font-bold mb-4">Services</h4>
+              <ul className="space-y-3 text-muted text-sm">
+                <li><a href="#" className="hover:text-accent transition-colors">Video Production</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">Studio Recording</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">Mixing & Mastering</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">Graphic Design</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4">Connect</h4>
+              <ul className="space-y-3 text-muted text-sm">
+                <li><a href="#" className="hover:text-accent transition-colors">Instagram</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">YouTube</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">Email Us</a></li>
+              </ul>
+            </div>
           </div>
           
-          <div>
-            <h4 className="small-caps text-gold mb-6">Atelier</h4>
-            <ul className="space-y-4 text-muted font-light">
-              <li><a href="#" className="hover:text-white transition-colors">Los Angeles</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">New York</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Paris</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="small-caps text-gold mb-6">Connect</h4>
-            <ul className="space-y-4 text-muted font-light">
-              <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Vimeo</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">LinkedIn</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div className="border-t-thin pt-8 flex flex-col md:flex-row justify-between items-center gap-4 small-caps text-[10px] text-muted">
-          <p>© 2026 REAL ONE MEDIA GROUP. ALL RIGHTS RESERVED.</p>
-          <div className="flex gap-8">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          <div className="border-t-thin pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted">
+            <p>© 2026 Real One Media Group. All rights reserved.</p>
+            <div className="flex gap-6">
+              <a href="#" className="hover:text-white transition-colors">Privacy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms</a>
+            </div>
           </div>
         </div>
       </footer>

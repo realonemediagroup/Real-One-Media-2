@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-display: 'Cormorant Garamond', serif;
-  --font-body: 'Montserrat', sans-serif;
-  --color-bg: #050505;
-  --color-surface: #111111;
-  --color-text: #F5F2ED;
-  --color-accent: #D4AF37; /* Champagne Gold */
-  --color-muted: rgba(245, 242, 237, 0.5);
-  --color-border: rgba(245, 242, 237, 0.15);
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --color-bg: #0A0A0A;
+  --color-surface: #171717;
+  --color-text: #F9FAFB;
+  --color-accent: #FF4400; /* Vibrant Orange-Red */
+  --color-muted: #9CA3AF;
+  --color-border: #262626;
 }
 
 body {
@@ -40,47 +40,63 @@ body {
   border-right: 1px solid var(--color-border);
 }
 
-.text-gold {
+.text-accent {
   color: var(--color-accent);
 }
 
-.bg-gold {
+.bg-accent {
   background-color: var(--color-accent);
 }
 
 .nav-pill {
-  border: 1px solid rgba(245, 242, 237, 0.3);
-  border-radius: 100px;
-  padding: 10px 28px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: transparent;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
 .nav-pill:hover {
-  background-color: var(--color-text);
-  color: var(--color-bg);
+  background-color: #E63D00;
+  transform: translateY(-1px);
+}
+
+.nav-pill-outline {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.nav-pill-outline:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 .small-caps {
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-weight: 500;
+  letter-spacing: 0.1em;
+  font-weight: 600;
 }
 
 .text-muted {
   color: var(--color-muted);
 }
 
-/* Elegant fade in for images */
+/* Modern hover for images */
 .img-hover-zoom {
   overflow: hidden;
+  border-radius: 12px;
 }
 
 .img-hover-zoom img {
-  transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.5s ease;
 }
 
 .img-hover-zoom:hover img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
