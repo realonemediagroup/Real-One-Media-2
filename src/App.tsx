@@ -22,6 +22,12 @@ const testimonials = [
     quote: "We needed a complete rebrand, and ROMG delivered beyond our expectations. The graphic design work was fresh, modern, and perfectly aligned with our brand identity.",
     author: "David L.",
     role: "Creative Director"
+  },
+  {
+    id: 4,
+    quote: "ROMG has mixed a majority of our big projects for us and has got us sounding right every time and is very open to feedback and personal notes.",
+    author: "SlowBurnCrew",
+    role: "Artist Duo"
   }
 ];
 
