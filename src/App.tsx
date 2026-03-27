@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Mic, PenTool, ArrowRight, Menu, X, Video, Headphones, Palette, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { Play, Mic, PenTool, ArrowRight, Menu, X, Video, Headphones, Palette, ChevronLeft, ChevronRight, Star, MapPin, Navigation } from 'lucide-react';
 import Map, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { motion, AnimatePresence } from 'motion/react';
@@ -321,19 +321,61 @@ export default function App() {
           Contact Us Today
         </a>
 
-        {/* Map */}
-        <div className="w-full h-[400px] rounded-xl overflow-hidden border border-white/10 shadow-2xl relative">
-          <Map
-            mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN || ""}
-            initialViewState={{
-              longitude: -120.4825482,
-              latitude: 37.3025895,
-              zoom: 15
-            }}
-            mapStyle="mapbox://styles/mapbox/dark-v11"
-          >
-            <Marker longitude={-120.4825482} latitude={37.3025895} color="#00CFFF" />
-          </Map>
+        {/* Map & Directions */}
+        <div className="w-full max-w-5xl mx-auto mb-16">
+          <div className="bg-[#171717] border-thin rounded-2xl overflow-hidden shadow-2xl relative group">
+            <div className="h-[450px] w-full">
+              <Map
+                mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN || ""}
+                initialViewState={{
+                  longitude: -120.482012,
+                  latitude: 37.301552,
+                  zoom: 16
+                }}
+                mapStyle="mapbox://styles/mapbox/dark-v11"
+              >
+                <Marker longitude={-120.482012} latitude={37.301552} color="#00CFFF" />
+              </Map>
+            </div>
+            
+            {/* Address Overlay */}
+            <div className="absolute top-6 left-6 right-6 md:right-auto md:w-80 bg-[#0A0A0A]/90 backdrop-blur-md border-thin p-6 rounded-xl z-10">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center text-accent shrink-0">
+                  <MapPin size={20} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-lg mb-1">Our Location</h4>
+                  <p className="text-muted text-sm leading-relaxed">
+                    1814 Canal St<br />
+                    Merced, CA 95340
+                  </p>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <p className="text-[10px] uppercase tracking-widest font-bold text-accent mb-2">Get Directions</p>
+                <a 
+                  href="https://maps.apple.com/?daddr=1814+Canal+St,+Merced,+CA+95340" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between w-full bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-3 rounded-lg transition-all group/btn"
+                >
+                  <span className="text-sm font-medium">iPhone (Apple Maps)</span>
+                  <Navigation size={16} className="text-accent group-hover/btn:translate-x-1 transition-transform" />
+                </a>
+                <a 
+                  href="https://www.google.com/maps/dir/?api=1&destination=1814+Canal+St,+Merced,+CA+95340" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between w-full bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-3 rounded-lg transition-all group/btn"
+                >
+                  <span className="text-sm font-medium">Android (Google Maps)</span>
+                  <Navigation size={16} className="text-accent group-hover/btn:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
