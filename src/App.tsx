@@ -60,7 +60,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] font-extrabold tracking-tighter leading-[0.85] uppercase"
+              className="font-display text-[15vw] md:text-[12vw] tracking-tighter leading-[0.85] uppercase"
             >
               REAL
             </motion.h1>
@@ -70,7 +70,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] font-extrabold tracking-tighter leading-[0.85] uppercase"
+              className="font-display text-[15vw] md:text-[12vw] tracking-tighter leading-[0.85] uppercase"
             >
               ONE
             </motion.h1>
@@ -80,7 +80,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] font-extrabold tracking-tighter leading-[0.85] uppercase"
+              className="font-display text-[15vw] md:text-[12vw] tracking-tighter leading-[0.85] uppercase"
             >
               MEDIA
             </motion.h1>
@@ -90,7 +90,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] font-extrabold tracking-tighter leading-[0.85] uppercase text-accent"
+              className="font-display text-[15vw] md:text-[12vw] tracking-tighter leading-[0.85] uppercase text-accent"
             >
               GROUP
             </motion.h1>
@@ -178,6 +178,60 @@ const testimonials = [
 ];
 
 const heroImage = "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=2500&auto=format&fit=crop";
+
+const MarqueeCarousel = () => {
+  const images = [
+    "https://drive.google.com/uc?id=1B2-Lr3pkM2FK4N4o1yv5CLNF_SYgcyDR",
+    "https://drive.google.com/uc?id=12x7GByz3ADqP2Mrb7Lhca00jeYUaldDn",
+    "https://drive.google.com/uc?id=1I0Rp3sQgwME_M0uxNGGtxfcNUmL2q2Lb",
+    "https://drive.google.com/uc?id=12p1ltn7Pw-jLiPgJb0PfMyVmdSzgon6G",
+    "https://drive.google.com/uc?id=1_3qwhrgl-UGCTxRCPts4A8joNgpCw0Ag",
+    "https://drive.google.com/uc?id=1tGV2nsu4glHPaAsgs2SHwga9E5d1BY_u",
+    "https://drive.google.com/uc?id=1OI0rD3oVmDpaqz0OkKc1WnfzeumvON3D",
+    "https://drive.google.com/uc?id=1BzpzSV2UTNrGJ4SnF-bZEcNE6Gj6IM5L",
+    "https://drive.google.com/uc?id=1Dz9oF9g2D0cFICYahwIbvl8O-hyFxjku",
+    "https://drive.google.com/uc?id=1106hu4CXPcqcoYEUDCqobsTs1VTrl9bG",
+    "https://drive.google.com/uc?id=1ZjAk6qk3RvtmEnzuwhcre-nYigu1Xsit",
+    "https://drive.google.com/uc?id=1bW4Q9Z4AHb4sV58diPQN-cd6qAstEr6i",
+    "https://drive.google.com/uc?id=1kgrAUP0ij-nXfh7I4T9m919TTDkwKCpZ",
+    "https://drive.google.com/uc?id=11W6YEJh4VaX2ETB_aDg2CZkDcilrmnpQ",
+    "https://drive.google.com/uc?id=1X_OE5be-Xznh5Xd5CWmJOxV32kli1gIW",
+    "https://drive.google.com/uc?id=1CYxUYgpbG9Xo3UhkNm-18E5JBH5aLVcy",
+    "https://drive.google.com/uc?id=1zBoZBoSy-0DQOX1cD8nXMeXwgBEfB2N1"
+  ];
+
+  return (
+    <div className="relative overflow-hidden py-10 mb-16 select-none">
+      {/* Edge Fades */}
+      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#121212] to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#121212] to-transparent z-10 pointer-events-none" />
+      
+      <motion.div 
+        className="flex gap-6 whitespace-nowrap"
+        animate={{ x: [0, -2400] }}
+        transition={{ 
+          duration: 60, 
+          repeat: Infinity, 
+          ease: "linear" 
+        }}
+      >
+        {[...images, ...images, ...images].map((src, idx) => (
+          <div 
+            key={idx} 
+            className="w-64 h-40 flex-shrink-0 rounded-xl overflow-hidden border border-white/5 bg-[#171717] transition-all duration-500 hover:border-accent/50 group"
+          >
+            <img 
+              src={src} 
+              alt={`Project Thumbnail ${idx}`} 
+              className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -301,7 +355,7 @@ export default function App() {
               initial={{ opacity: 0, y: 100 }}
               animate={!isLoading ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 leading-[1.1]"
+              className="font-display text-5xl md:text-7xl lg:text-8xl tracking-tight mb-6 leading-[1.1]"
             >
               Bring your vision <br />
               <span className="text-accent inline-block">
@@ -352,7 +406,7 @@ export default function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-4xl md:text-5xl font-extrabold mb-4"
+              className="font-display text-4xl md:text-5xl mb-4"
             >
               What we do.
             </motion.h2>
@@ -379,7 +433,7 @@ export default function App() {
               <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
                 <Video size={28} />
               </div>
-              <h3 className="font-display text-2xl font-extrabold mb-3">Video & Film</h3>
+              <h3 className="font-display text-2xl mb-3">Video & Film</h3>
               <p className="text-muted leading-relaxed mb-6">
                 Professional cinematography and editing for music videos, weddings, quinceneras, and highlight reels.
               </p>
@@ -401,7 +455,7 @@ export default function App() {
               <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
                 <Headphones size={28} />
               </div>
-              <h3 className="font-display text-2xl font-extrabold mb-3">Audio & Recording</h3>
+              <h3 className="font-display text-2xl mb-3">Audio & Recording</h3>
               <p className="text-muted leading-relaxed mb-6">
                 Professional studio recording, mixing, and mastering for artists, bands, and podcasters.
               </p>
@@ -423,7 +477,7 @@ export default function App() {
               <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
                 <Palette size={28} />
               </div>
-              <h3 className="font-display text-2xl font-extrabold mb-3">Design & Digital</h3>
+              <h3 className="font-display text-2xl mb-3">Design & Digital</h3>
               <p className="text-muted leading-relaxed mb-6">
                 Album art, branding, website design, and personal blogs that make your project look as good as it sounds.
               </p>
@@ -453,12 +507,12 @@ export default function App() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h2 className="font-display text-4xl md:text-5xl font-extrabold mb-4">Recent Projects</h2>
+              <h2 className="font-display text-4xl md:text-5xl mb-4">Recent Projects</h2>
               <p className="text-muted text-lg">Check out what we've been working on.</p>
             </motion.div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             {/* Project 1 */}
             <motion.div 
               initial={{ opacity: 0, y: 40 }}
@@ -480,7 +534,7 @@ export default function App() {
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-display text-2xl font-extrabold mb-1 group-hover:text-accent transition-colors">Cesar Olvera Boxing Documentary</h3>
+                  <h3 className="font-display text-2xl mb-1 group-hover:text-accent transition-colors">Cesar Olvera Boxing Documentary</h3>
                   <p className="text-muted text-sm">Video Production</p>
                 </div>
               </div>
@@ -506,12 +560,14 @@ export default function App() {
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-display text-2xl font-extrabold mb-1 group-hover:text-accent transition-colors">Mixed by Real One Media</h3>
+                  <h3 className="font-display text-2xl mb-1 group-hover:text-accent transition-colors">Mixed by Real One Media</h3>
                   <p className="text-muted text-sm">Audio Mixing/Recording</p>
                 </div>
               </div>
             </motion.div>
           </div>
+
+          <MarqueeCarousel />
         </div>
       </motion.section>
 
@@ -529,7 +585,7 @@ export default function App() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-4xl md:text-5xl font-extrabold mb-4"
+            className="font-display text-4xl md:text-5xl mb-4"
           >
             What people say.
           </motion.h2>
@@ -620,7 +676,7 @@ export default function App() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-4xl md:text-6xl font-extrabold mb-6"
+          className="font-display text-4xl md:text-6xl mb-6"
         >
           Ready to create?
         </motion.h2>
