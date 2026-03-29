@@ -1,10 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Play, Mic, PenTool, ArrowRight, Menu, X, Video, Headphones, Palette, ChevronLeft, ChevronRight, Star, MapPin, Navigation } from 'lucide-react';
 import Map, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
+import GeminiChat from './components/GeminiChat';
 
 const testimonials = [
+  {
+    id: 5,
+    quote: "ROMG is the truth. They have polished my projects and, sonically, are masters at their craft. Real Ones Only!!!!",
+    author: "Aztek",
+    role: "Recording Artist"
+  },
+  {
+    id: 4,
+    quote: "ROMG has mixed a majority of our big projects for us and has got us sounding right every time and is very open to feedback and personal notes.",
+    author: "SlowBurnCrew",
+    role: "Artist Duo"
+  },
   {
     id: 1,
     quote: "ROMG took our music video to the next level. The production quality and attention to detail were unmatched. They truly understood our vision.",
@@ -22,19 +35,21 @@ const testimonials = [
     quote: "We needed a complete rebrand, and ROMG delivered beyond our expectations. The graphic design work was fresh, modern, and perfectly aligned with our brand identity.",
     author: "David L.",
     role: "Creative Director"
-  },
-  {
-    id: 4,
-    quote: "ROMG has mixed a majority of our big projects for us and has got us sounding right every time and is very open to feedback and personal notes.",
-    author: "SlowBurnCrew",
-    role: "Artist Duo"
   }
+];
+
+const heroImages = [
+  "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=2500&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=2500&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2500&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=2500&auto=format&fit=crop"
 ];
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [currentHeroImage, setCurrentHeroImage] = useState(0);
 
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -51,6 +66,19 @@ export default function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+  const y2 = useTransform(scrollY, [0, 500], [0, 100]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-[var(--color-accent)] selection:text-white">
@@ -95,44 +123,146 @@ export default function App() {
       )}
 
       {/* Hero Section */}
-      <header className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-20">
-        <div className="absolute inset-0 z-0 opacity-30">
-          <img 
-            src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2500&auto=format&fit=crop" 
-            alt="Recording Studio Background" 
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
+      <header ref={heroRef} className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden">
+        {/* Background Visuals */}
+        <div className="absolute inset-0 z-0">
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={currentHeroImage}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full"
+            >
+              <motion.img 
+                style={{ y: y1 }}
+                animate={{ 
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{ 
+                  duration: 20, 
+                  repeat: Infinity, 
+                  ease: "linear" 
+                }}
+                src={heroImages[currentHeroImage]} 
+                alt="Creative Studio Background" 
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+          </AnimatePresence>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/70 via-[#0A0A0A]/40 to-[#0A0A0A]"></div>
+          
+          {/* Animated Blobs */}
+          <motion.div 
+            style={{ y: y2 }}
+            animate={{ 
+              scale: [1, 1.2, 1],
+              x: [0, 50, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{ 
+              duration: 10, 
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute top-1/4 -left-20 w-96 h-96 bg-accent/10 rounded-full blur-[120px]"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/60 to-[#0A0A0A]"></div>
+          <motion.div 
+            style={{ y: y1 }}
+            animate={{ 
+              scale: [1, 1.3, 1],
+              x: [0, -40, 0],
+              y: [0, 60, 0],
+            }}
+            transition={{ 
+              duration: 12, 
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1
+            }}
+            className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px]"
+          />
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto w-full">
-          <div className="inline-block bg-[#171717] border-thin rounded-full px-4 py-1.5 mb-8">
+        <motion.div style={{ opacity }} className="relative z-10 max-w-5xl mx-auto w-full">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-block bg-[#171717] border-thin rounded-full px-4 py-1.5 mb-8"
+          >
             <p className="text-sm font-medium flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
               Now booking studio sessions for 2026
             </p>
+          </motion.div>
+          
+          <div className="overflow-hidden">
+            <motion.h1 
+              initial={{ opacity: 0, filter: "blur(10px)", y: 100 }}
+              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 leading-[1.1]"
+            >
+              Bring your vision <br />
+              <motion.span 
+                animate={{ 
+                  textShadow: [
+                    "0 0 0px rgba(0, 207, 255, 0)",
+                    "0 0 20px rgba(0, 207, 255, 0.5)",
+                    "0 0 0px rgba(0, 207, 255, 0)"
+                  ]
+                }}
+                transition={{ 
+                  duration: 3, 
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="text-accent inline-block"
+              >
+                to life.
+              </motion.span>
+            </motion.h1>
           </div>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 leading-[1.1]">
-            Bring your vision <br />
-            <span className="text-accent">to life.</span>
-          </h1>
-          <p className="max-w-2xl text-lg md:text-xl text-muted mb-10 leading-relaxed">
-            We are a creative production studio specializing in video, audio recording, and graphic design for recording artists, creators, and businesses.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
+          
+          <div className="overflow-hidden">
+            <motion.p 
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-2xl text-lg md:text-xl text-muted mb-10 leading-relaxed"
+            >
+              We are a creative production studio specializing in video, audio recording, and graphic design for recording artists, creators, and businesses.
+            </motion.p>
+          </div>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4"
+          >
             <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill text-center flex justify-center items-center gap-2">
               Book the Studio <ArrowRight size={18} />
             </a>
             <a href="#work" className="nav-pill-outline text-center flex justify-center items-center">
               View Our Work
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </header>
 
       {/* Services Section */}
-      <section id="services" className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full">
+      <motion.section 
+        id="services" 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full"
+      >
         <div className="mb-16 md:mb-24">
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">What we do.</h2>
           <p className="max-w-2xl text-muted text-lg">
@@ -189,10 +319,17 @@ export default function App() {
             </ul>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Work Section */}
-      <section id="work" className="py-24 md:py-32 bg-[#121212] border-t-thin border-b-thin">
+      <motion.section 
+        id="work" 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="py-24 md:py-32 bg-[#121212] border-t-thin border-b-thin"
+      >
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>
@@ -244,10 +381,16 @@ export default function App() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Testimonials Section */}
-      <section className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full overflow-hidden">
+      <motion.section 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full overflow-hidden"
+      >
         <div className="text-center mb-16">
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">What people say.</h2>
           <p className="text-muted text-lg max-w-2xl mx-auto">Don't just take our word for it. Hear from the artists and brands we've worked with.</p>
@@ -313,10 +456,17 @@ export default function App() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA Section */}
-      <section id="studio" className="py-24 md:py-32 px-6 md:px-12 text-center max-w-4xl mx-auto">
+      <motion.section 
+        id="studio" 
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="py-24 md:py-32 px-6 md:px-12 text-center max-w-4xl mx-auto"
+      >
         <h2 className="font-display text-4xl md:text-6xl font-bold mb-6">
           Ready to create?
         </h2>
@@ -336,7 +486,7 @@ export default function App() {
                 initialViewState={{
                   longitude: -120.482012,
                   latitude: 37.301552,
-                  zoom: 16
+                  zoom: 17
                 }}
                 mapStyle="mapbox://styles/mapbox/dark-v11"
               >
@@ -353,7 +503,7 @@ export default function App() {
                 <div>
                   <h4 className="font-bold text-lg mb-1">Our Location</h4>
                   <p className="text-muted text-sm leading-relaxed">
-                    1814 Canal St<br />
+                    1812 Canal St. Suite 4<br />
                     Merced, CA 95340
                   </p>
                 </div>
@@ -362,7 +512,7 @@ export default function App() {
               <div className="space-y-3">
                 <p className="text-[10px] uppercase tracking-widest font-bold text-accent mb-2">Get Directions</p>
                 <a 
-                  href="https://maps.apple.com/?daddr=1814+Canal+St,+Merced,+CA+95340" 
+                  href="https://maps.apple.com/?daddr=1812+Canal+St+Suite+4,+Merced,+CA+95340" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center justify-between w-full bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-3 rounded-lg transition-all group/btn"
@@ -371,7 +521,7 @@ export default function App() {
                   <Navigation size={16} className="text-accent group-hover/btn:translate-x-1 transition-transform" />
                 </a>
                 <a 
-                  href="https://www.google.com/maps/dir/?api=1&destination=1814+Canal+St,+Merced,+CA+95340" 
+                  href="https://www.google.com/maps/dir/?api=1&destination=1812+Canal+St+Suite+4,+Merced,+CA+95340" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center justify-between w-full bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-3 rounded-lg transition-all group/btn"
@@ -383,7 +533,7 @@ export default function App() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
       <footer className="bg-[#121212] border-t-thin pt-16 pb-8 px-6 md:px-12">
@@ -421,6 +571,7 @@ export default function App() {
           </div>
         </div>
       </footer>
+      <GeminiChat />
     </div>
   );
 }
