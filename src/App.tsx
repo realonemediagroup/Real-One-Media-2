@@ -60,7 +60,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] font-black tracking-tighter leading-[0.85] uppercase"
+              className="font-display text-[15vw] md:text-[12vw] font-extrabold tracking-tighter leading-[0.85] uppercase"
             >
               REAL
             </motion.h1>
@@ -70,7 +70,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] font-black tracking-tighter leading-[0.85] uppercase"
+              className="font-display text-[15vw] md:text-[12vw] font-extrabold tracking-tighter leading-[0.85] uppercase"
             >
               ONE
             </motion.h1>
@@ -80,7 +80,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] font-black tracking-tighter leading-[0.85] uppercase"
+              className="font-display text-[15vw] md:text-[12vw] font-extrabold tracking-tighter leading-[0.85] uppercase"
             >
               MEDIA
             </motion.h1>
@@ -90,7 +90,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] font-black tracking-tighter leading-[0.85] uppercase text-accent"
+              className="font-display text-[15vw] md:text-[12vw] font-extrabold tracking-tighter leading-[0.85] uppercase text-accent"
             >
               GROUP
             </motion.h1>
@@ -301,7 +301,7 @@ export default function App() {
               initial={{ opacity: 0, y: 100 }}
               animate={!isLoading ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 leading-[1.1]"
+              className="font-display text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 leading-[1.1]"
             >
               Bring your vision <br />
               <span className="text-accent inline-block">
@@ -352,7 +352,7 @@ export default function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-4xl md:text-5xl font-bold mb-4"
+              className="font-display text-4xl md:text-5xl font-extrabold mb-4"
             >
               What we do.
             </motion.h2>
@@ -379,7 +379,7 @@ export default function App() {
               <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
                 <Video size={28} />
               </div>
-              <h3 className="font-display text-2xl font-bold mb-3">Video & Film</h3>
+              <h3 className="font-display text-2xl font-extrabold mb-3">Video & Film</h3>
               <p className="text-muted leading-relaxed mb-6">
                 Professional cinematography and editing for music videos, weddings, quinceneras, and highlight reels.
               </p>
@@ -401,7 +401,7 @@ export default function App() {
               <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
                 <Headphones size={28} />
               </div>
-              <h3 className="font-display text-2xl font-bold mb-3">Audio & Recording</h3>
+              <h3 className="font-display text-2xl font-extrabold mb-3">Audio & Recording</h3>
               <p className="text-muted leading-relaxed mb-6">
                 Professional studio recording, mixing, and mastering for artists, bands, and podcasters.
               </p>
@@ -423,7 +423,7 @@ export default function App() {
               <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
                 <Palette size={28} />
               </div>
-              <h3 className="font-display text-2xl font-bold mb-3">Design & Digital</h3>
+              <h3 className="font-display text-2xl font-extrabold mb-3">Design & Digital</h3>
               <p className="text-muted leading-relaxed mb-6">
                 Album art, branding, website design, and personal blogs that make your project look as good as it sounds.
               </p>
@@ -453,7 +453,7 @@ export default function App() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">Recent Projects</h2>
+              <h2 className="font-display text-4xl md:text-5xl font-extrabold mb-4">Recent Projects</h2>
               <p className="text-muted text-lg">Check out what we've been working on.</p>
             </motion.div>
           </div>
@@ -480,7 +480,7 @@ export default function App() {
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-display text-2xl font-bold mb-1 group-hover:text-accent transition-colors">Cesar Olvera Boxing Documentary</h3>
+                  <h3 className="font-display text-2xl font-extrabold mb-1 group-hover:text-accent transition-colors">Cesar Olvera Boxing Documentary</h3>
                   <p className="text-muted text-sm">Video Production</p>
                 </div>
               </div>
@@ -506,7 +506,7 @@ export default function App() {
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-display text-2xl font-bold mb-1 group-hover:text-accent transition-colors">Mixed by Real One Media</h3>
+                  <h3 className="font-display text-2xl font-extrabold mb-1 group-hover:text-accent transition-colors">Mixed by Real One Media</h3>
                   <p className="text-muted text-sm">Audio Mixing/Recording</p>
                 </div>
               </div>
@@ -529,7 +529,7 @@ export default function App() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-4xl md:text-5xl font-bold mb-4"
+            className="font-display text-4xl md:text-5xl font-extrabold mb-4"
           >
             What people say.
           </motion.h2>
@@ -620,7 +620,7 @@ export default function App() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-4xl md:text-6xl font-bold mb-6"
+          className="font-display text-4xl md:text-6xl font-extrabold mb-6"
         >
           Ready to create?
         </motion.h2>
