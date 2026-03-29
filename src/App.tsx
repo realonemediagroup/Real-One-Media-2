@@ -5,6 +5,145 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import GeminiChat from './components/GeminiChat';
 
+const Preloader = ({ onComplete }: { onComplete: () => void }) => {
+  const [progress, setProgress] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(onComplete, 400);
+          return 100;
+        }
+        return prev + 1;
+      });
+    }, 15);
+    return () => clearInterval(interval);
+  }, [onComplete, hasStarted]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed inset-0 z-[100] bg-[#0A0A0A] flex flex-col items-center justify-center overflow-hidden"
+    >
+      {/* Immersive Background Video */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover opacity-40 scale-105"
+        >
+          <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27dc36990695c1d63897970d6447996958d0a08&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-transparent to-[#0A0A0A]"></div>
+        <div className="absolute inset-0 bg-[#0A0A0A]/20"></div>
+      </div>
+
+      {/* Massive Stacked Text */}
+      <div className="relative z-10 w-full px-6 flex flex-col items-center">
+        <motion.div 
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center"
+        >
+          <div className="overflow-hidden">
+            <motion.h1 
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-[15vw] md:text-[12vw] font-black tracking-tighter leading-[0.85] uppercase"
+            >
+              REAL
+            </motion.h1>
+          </div>
+          <div className="overflow-hidden">
+            <motion.h1 
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-[15vw] md:text-[12vw] font-black tracking-tighter leading-[0.85] uppercase"
+            >
+              ONE
+            </motion.h1>
+          </div>
+          <div className="overflow-hidden">
+            <motion.h1 
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-[15vw] md:text-[12vw] font-black tracking-tighter leading-[0.85] uppercase"
+            >
+              MEDIA
+            </motion.h1>
+          </div>
+          <div className="overflow-hidden">
+            <motion.h1 
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-[15vw] md:text-[12vw] font-black tracking-tighter leading-[0.85] uppercase text-accent"
+            >
+              GROUP
+            </motion.h1>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Interaction Layer */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 w-full flex flex-col items-center">
+        <AnimatePresence mode="wait">
+          {!hasStarted ? (
+            <motion.button
+              key="start-button"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => setHasStarted(true)}
+              className="group relative px-10 py-4 overflow-hidden rounded-full border border-white/10 bg-white/5 backdrop-blur-md transition-all hover:border-accent hover:scale-105 active:scale-95"
+            >
+              <span className="relative z-10 font-display font-bold tracking-[0.2em] uppercase text-xs text-white group-hover:text-accent transition-colors">
+                Initialize Experience
+              </span>
+              <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </motion.button>
+          ) : (
+            <motion.div
+              key="progress-info"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-center gap-4"
+            >
+              <span className="font-mono text-[10px] tracking-[0.3em] text-muted uppercase">Initializing</span>
+              <span className="font-mono text-[10px] font-bold text-accent">{progress}%</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Full-width Bottom Progress Bar */}
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-white/5">
+        <motion.div 
+          className="h-full bg-accent shadow-[0_0_15px_rgba(0,207,255,0.5)]"
+          initial={{ width: "0%" }}
+          animate={{ width: `${progress}%` }}
+          transition={{ ease: "linear" }}
+        />
+      </div>
+    </motion.div>
+  );
+};
+
 const testimonials = [
   {
     id: 5,
@@ -41,6 +180,7 @@ const testimonials = [
 const heroImage = "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=2500&auto=format&fit=crop";
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -67,70 +207,87 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-[var(--color-accent)] selection:text-white">
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#0A0A0A]/95 backdrop-blur-md border-b-thin py-4' : 'bg-transparent py-6'}`}>
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-accent rounded-md flex items-center justify-center">
-              <span className="font-display font-bold text-[#0A0A0A] text-xl leading-none">R</span>
+      <AnimatePresence mode="wait">
+        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+      </AnimatePresence>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoading ? 0 : 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* Navigation */}
+        <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-[#0A0A0A]/95 backdrop-blur-md border-b-thin py-4' : 'bg-transparent py-6'}`}>
+          <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-accent rounded-md flex items-center justify-center">
+                <span className="font-display font-bold text-[#0A0A0A] text-xl leading-none">R</span>
+              </div>
+              <span className="font-display font-bold text-xl tracking-tight">ROMG</span>
             </div>
-            <span className="font-display font-bold text-xl tracking-tight">ROMG</span>
-          </div>
-          
-          <div className="hidden md:flex gap-8 text-sm font-medium items-center">
-            <a href="#services" className="hover:text-accent transition-colors duration-200">Services</a>
-            <a href="#work" className="hover:text-accent transition-colors duration-200">Our Work</a>
-            <a href="#studio" className="hover:text-accent transition-colors duration-200">The Studio</a>
-            <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill inline-block">
-              Let's Work
-            </a>
-          </div>
+            
+            <div className="hidden md:flex gap-8 text-sm font-medium items-center">
+              <a href="#services" className="hover:text-accent transition-colors duration-300">Services</a>
+              <a href="#work" className="hover:text-accent transition-colors duration-300">Our Work</a>
+              <a href="#studio" className="hover:text-accent transition-colors duration-300">The Studio</a>
+              <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill inline-block">
+                Let's Work
+              </a>
+            </div>
 
-          <button 
-            className="md:hidden text-white"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#0A0A0A] flex flex-col justify-center items-center gap-8">
-          <a href="#services" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>Services</a>
-          <a href="#work" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>Our Work</a>
-          <a href="#studio" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>The Studio</a>
-          <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill mt-4 inline-block text-center" onClick={() => setIsMenuOpen(false)}>
-            Let's Work
-          </a>
-        </div>
-      )}
-
-      {/* Hero Section */}
-      <header ref={heroRef} className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden">
-        {/* Background Visuals */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 w-full h-full opacity-50">
-            <img 
-              src={heroImage} 
-              alt="Creative Studio Background" 
-              className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
-            />
+            <button 
+              className="md:hidden text-white"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/70 via-[#0A0A0A]/40 to-[#0A0A0A]"></div>
-          
-          {/* Background Blobs */}
-          <div className="absolute top-1/4 -left-20 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
-          <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px]" />
-        </div>
+        </nav>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, x: "100%" }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: "100%" }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed inset-0 z-40 bg-[#0A0A0A] flex flex-col justify-center items-center gap-8"
+            >
+              <a href="#services" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>Services</a>
+              <a href="#work" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>Our Work</a>
+              <a href="#studio" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>The Studio</a>
+              <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill mt-4 inline-block text-center" onClick={() => setIsMenuOpen(false)}>
+                Let's Work
+              </a>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Hero Section */}
+        <header ref={heroRef} className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden">
+          {/* Background Visuals */}
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 w-full h-full opacity-50">
+              <img 
+                src={heroImage} 
+                alt="Creative Studio Background" 
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/70 via-[#0A0A0A]/40 to-[#0A0A0A]"></div>
+            
+            {/* Background Blobs */}
+            <div className="absolute top-1/4 -left-20 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
+            <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px]" />
+          </div>
 
         <motion.div style={{ opacity }} className="relative z-10 max-w-5xl mx-auto w-full">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            animate={!isLoading ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
             className="inline-block bg-[#171717] border-thin rounded-full px-4 py-1.5 mb-8"
           >
             <p className="text-sm font-medium flex items-center gap-2">
@@ -142,8 +299,8 @@ export default function App() {
           <div className="overflow-hidden">
             <motion.h1 
               initial={{ opacity: 0, y: 100 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              animate={!isLoading ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 leading-[1.1]"
             >
               Bring your vision <br />
@@ -156,8 +313,8 @@ export default function App() {
           <div className="overflow-hidden">
             <motion.p 
               initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              animate={!isLoading ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-2xl text-lg md:text-xl text-muted mb-10 leading-relaxed"
             >
               We are a creative production studio specializing in video, audio, and digital design for artists, businesses, and our local community.
@@ -166,8 +323,8 @@ export default function App() {
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            animate={!isLoading ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row gap-4"
           >
             <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill text-center flex justify-center items-center gap-2">
@@ -178,128 +335,139 @@ export default function App() {
             </a>
           </motion.div>
         </motion.div>
-      </header>
+        </header>
 
-      {/* Services Section */}
-      <motion.section 
-        id="services" 
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
-        className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full"
-      >
-        <div className="mb-16 md:mb-24">
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-display text-4xl md:text-5xl font-bold mb-4"
-          >
-            What we do.
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="max-w-2xl text-muted text-lg"
-          >
-            From the recording booth to the final cut, we provide end-to-end creative services for artists, families, and businesses.
-          </motion.p>
-        </div>
+        {/* Services Section */}
+        <motion.section 
+          id="services" 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full"
+        >
+          <div className="mb-16 md:mb-24">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-4xl md:text-5xl font-bold mb-4"
+            >
+              What we do.
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-2xl text-muted text-lg"
+            >
+              From the recording booth to the final cut, we provide end-to-end creative services for artists, families, and businesses.
+            </motion.p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {/* Service 1 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300"
-          >
-            <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
-              <Video size={28} />
-            </div>
-            <h3 className="font-display text-2xl font-bold mb-3">Video & Film</h3>
-            <p className="text-muted leading-relaxed mb-6">
-              Professional cinematography and editing for music videos, weddings, quinceneras, and highlight reels.
-            </p>
-            <ul className="space-y-3 text-sm font-medium text-gray-300">
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Music Videos</li>
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Weddings & Quinceneras</li>
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Sports Highlight Reels</li>
-            </ul>
-          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {/* Service 1 */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-all duration-500 hover:-translate-y-2"
+            >
+              <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
+                <Video size={28} />
+              </div>
+              <h3 className="font-display text-2xl font-bold mb-3">Video & Film</h3>
+              <p className="text-muted leading-relaxed mb-6">
+                Professional cinematography and editing for music videos, weddings, quinceneras, and highlight reels.
+              </p>
+              <ul className="space-y-3 text-sm font-medium text-gray-300">
+                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Music Videos</li>
+                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Weddings & Quinceneras</li>
+                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Sports Highlight Reels</li>
+              </ul>
+            </motion.div>
 
-          {/* Service 2 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300"
-          >
-            <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
-              <Headphones size={28} />
-            </div>
-            <h3 className="font-display text-2xl font-bold mb-3">Audio & Recording</h3>
-            <p className="text-muted leading-relaxed mb-6">
-              Professional studio recording, mixing, and mastering for artists, bands, and podcasters.
-            </p>
-            <ul className="space-y-3 text-sm font-medium text-gray-300">
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Studio Recording</li>
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Mixing & Mastering</li>
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Podcast Production</li>
-            </ul>
-          </motion.div>
+            {/* Service 2 */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-all duration-500 hover:-translate-y-2"
+            >
+              <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
+                <Headphones size={28} />
+              </div>
+              <h3 className="font-display text-2xl font-bold mb-3">Audio & Recording</h3>
+              <p className="text-muted leading-relaxed mb-6">
+                Professional studio recording, mixing, and mastering for artists, bands, and podcasters.
+              </p>
+              <ul className="space-y-3 text-sm font-medium text-gray-300">
+                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Studio Recording</li>
+                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Mixing & Mastering</li>
+                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Podcast Production</li>
+              </ul>
+            </motion.div>
 
-          {/* Service 3 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300"
-          >
-            <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
-              <Palette size={28} />
-            </div>
-            <h3 className="font-display text-2xl font-bold mb-3">Design & Digital</h3>
-            <p className="text-muted leading-relaxed mb-6">
-              Album art, branding, website design, and personal blogs that make your project look as good as it sounds.
-            </p>
-            <ul className="space-y-3 text-sm font-medium text-gray-300">
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Logo & Branding</li>
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Website Design</li>
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Personal Blogs</li>
-            </ul>
-          </motion.div>
-        </div>
-      </motion.section>
+            {/* Service 3 */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-all duration-500 hover:-translate-y-2"
+            >
+              <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
+                <Palette size={28} />
+              </div>
+              <h3 className="font-display text-2xl font-bold mb-3">Design & Digital</h3>
+              <p className="text-muted leading-relaxed mb-6">
+                Album art, branding, website design, and personal blogs that make your project look as good as it sounds.
+              </p>
+              <ul className="space-y-3 text-sm font-medium text-gray-300">
+                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Logo & Branding</li>
+                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Website Design</li>
+                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Personal Blogs</li>
+              </ul>
+            </motion.div>
+          </div>
+        </motion.section>
 
       {/* Work Section */}
       <motion.section 
         id="work" 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="py-24 md:py-32 bg-[#121212] border-t-thin border-b-thin"
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            >
               <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">Recent Projects</h2>
               <p className="text-muted text-lg">Check out what we've been working on.</p>
-            </div>
+            </motion.div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Project 1 */}
-            <div className="group">
-              <div className="aspect-video mb-5 rounded-xl overflow-hidden border border-white/10 bg-black">
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="group"
+            >
+              <div className="aspect-video mb-5 rounded-xl overflow-hidden border border-white/10 bg-black transition-transform duration-500 group-hover:scale-[1.02]">
                 <iframe 
                   className="block w-full h-full"
                   src="https://www.youtube.com/embed/WnSTm8pUGVk?si=SLeKzJx-W-XeIHVq" 
@@ -316,11 +484,17 @@ export default function App() {
                   <p className="text-muted text-sm">Video Production</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Project 2 */}
-            <div className="group">
-              <div className="aspect-video mb-5 rounded-xl overflow-hidden border border-white/10 bg-black">
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="group"
+            >
+              <div className="aspect-video mb-5 rounded-xl overflow-hidden border border-white/10 bg-black transition-transform duration-500 group-hover:scale-[1.02]">
                 <iframe 
                   className="block w-full h-full"
                   style={{ border: 0, borderRadius: 0 }} 
@@ -336,7 +510,7 @@ export default function App() {
                   <p className="text-muted text-sm">Audio Mixing/Recording</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </motion.section>
@@ -346,19 +520,35 @@ export default function App() {
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full overflow-hidden"
       >
         <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">What people say.</h2>
-          <p className="text-muted text-lg max-w-2xl mx-auto">Don't just take our word for it. Hear from the artists and brands we've worked with.</p>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display text-4xl md:text-5xl font-bold mb-4"
+          >
+            What people say.
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="text-muted text-lg max-w-2xl mx-auto"
+          >
+            Don't just take our word for it. Hear from the artists and brands we've worked with.
+          </motion.p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
           <div className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 z-10">
             <button 
               onClick={prevTestimonial}
-              className="w-12 h-12 rounded-full bg-[#171717] border border-white/10 flex items-center justify-center text-white hover:text-accent hover:border-accent transition-colors"
+              className="w-12 h-12 rounded-full bg-[#171717] border border-white/10 flex items-center justify-center text-white hover:text-accent hover:border-accent transition-all duration-300"
               aria-label="Previous testimonial"
             >
               <ChevronLeft size={24} />
@@ -368,7 +558,7 @@ export default function App() {
           <div className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 z-10">
             <button 
               onClick={nextTestimonial}
-              className="w-12 h-12 rounded-full bg-[#171717] border border-white/10 flex items-center justify-center text-white hover:text-accent hover:border-accent transition-colors"
+              className="w-12 h-12 rounded-full bg-[#171717] border border-white/10 flex items-center justify-center text-white hover:text-accent hover:border-accent transition-all duration-300"
               aria-label="Next testimonial"
             >
               <ChevronRight size={24} />
@@ -379,10 +569,10 @@ export default function App() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentTestimonial}
-                initial={{ opacity: 0, x: 50 }}
+                initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="text-center"
               >
                 <div className="flex justify-center gap-1 mb-8 text-accent">
@@ -406,8 +596,8 @@ export default function App() {
               <button
                 key={idx}
                 onClick={() => setCurrentTestimonial(idx)}
-                className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                  idx === currentTestimonial ? 'bg-accent' : 'bg-white/20 hover:bg-white/40'
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  idx === currentTestimonial ? 'bg-accent w-6' : 'bg-white/20 hover:bg-white/40'
                 }`}
                 aria-label={`Go to testimonial ${idx + 1}`}
               />
@@ -419,21 +609,40 @@ export default function App() {
       {/* CTA Section */}
       <motion.section 
         id="studio" 
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="py-24 md:py-32 px-6 md:px-12 text-center max-w-4xl mx-auto"
       >
-        <h2 className="font-display text-4xl md:text-6xl font-bold mb-6">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display text-4xl md:text-6xl font-bold mb-6"
+        >
           Ready to create?
-        </h2>
-        <p className="text-lg text-muted mb-10 max-w-2xl mx-auto">
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="text-lg text-muted mb-10 max-w-2xl mx-auto"
+        >
           Whether you need a full music video, a studio session, or a fresh logo, our team is ready to help you level up.
-        </p>
-        <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill text-lg px-8 py-4 inline-block mb-16">
-          Contact Us Today
-        </a>
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill text-lg px-8 py-4 inline-block mb-16">
+            Contact Us Today
+          </a>
+        </motion.div>
 
         {/* Map & Directions */}
         <div className="w-full max-w-5xl mx-auto mb-16">
@@ -530,6 +739,7 @@ export default function App() {
         </div>
       </footer>
       <GeminiChat />
+      </motion.div>
     </div>
   );
 }

@@ -70,9 +70,10 @@ export default function GeminiChat() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="absolute bottom-20 right-0 w-[350px] md:w-[400px] h-[500px] bg-[#171717] border-thin rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}

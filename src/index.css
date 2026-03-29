@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter+Tight:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-display: 'Archivo Black', sans-serif;
-  --font-body: 'Inter Tight', sans-serif;
-  --color-bg: #0A0A0A;
-  --color-surface: #171717;
-  --color-text: #F9FAFB;
-  --color-accent: #00CFFF; /* Neon Blue */
-  --color-muted: #9CA3AF;
-  --color-border: #262626;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', sans-serif;
+  --color-bg: #000000;
+  --color-surface: #0A0A0A;
+  --color-text: #FFFFFF;
+  --color-accent: #00CFFF; /* Keeping the signature blue but can be used more sparingly */
+  --color-muted: #888888;
+  --color-border: rgba(255, 255, 255, 0.08);
 }
 
 body {
@@ -19,6 +19,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
+  letter-spacing: -0.01em;
 }
 
 body::after {
@@ -26,7 +27,7 @@ body::after {
   position: fixed;
   inset: 0;
   background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-  opacity: 0.02;
+  opacity: 0.03;
   pointer-events: none;
   z-index: 9999;
 }
@@ -60,42 +61,62 @@ body::after {
 }
 
 .nav-pill {
-  background-color: var(--color-accent);
-  color: #0A0A0A;
-  border-radius: 8px;
-  padding: 10px 24px;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  background-color: #FFFFFF;
+  color: #000000;
+  border-radius: 100px;
+  padding: 12px 28px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  letter-spacing: 0.02em;
 }
 
 .nav-pill:hover {
-  background-color: #00B8E6;
-  transform: translateY(-1px);
+  background-color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 207, 255, 0.2);
 }
 
 .nav-pill-outline {
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 10px 24px;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  padding: 12px 28px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   background: transparent;
+  letter-spacing: 0.02em;
 }
 
 .nav-pill-outline:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  border-color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.small-caps {
-  font-size: 12px;
+.micro-label {
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.2em;
   font-weight: 600;
+  color: var(--color-muted);
 }
 
 .text-muted {
   color: var(--color-muted);
+}
+
+/* Luxury Card */
+.luxury-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.luxury-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  transform: translateY(-4px);
 }
 
 /* Modern hover for images */
@@ -105,9 +126,9 @@ body::after {
 }
 
 .img-hover-zoom img {
-  transition: transform 0.5s ease;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .img-hover-zoom:hover img {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
