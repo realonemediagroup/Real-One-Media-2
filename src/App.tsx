@@ -201,29 +201,15 @@ export default function App() {
           
           <div className="overflow-hidden">
             <motion.h1 
-              initial={{ opacity: 0, filter: "blur(10px)", y: 100 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
               className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 leading-[1.1]"
             >
               Bring your vision <br />
-              <motion.span 
-                animate={{ 
-                  textShadow: [
-                    "0 0 0px rgba(0, 207, 255, 0)",
-                    "0 0 20px rgba(0, 207, 255, 0.5)",
-                    "0 0 0px rgba(0, 207, 255, 0)"
-                  ]
-                }}
-                transition={{ 
-                  duration: 3, 
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="text-accent inline-block"
-              >
+              <span className="text-accent inline-block">
                 to life.
-              </motion.span>
+              </span>
             </motion.h1>
           </div>
           
@@ -234,7 +220,7 @@ export default function App() {
               transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="max-w-2xl text-lg md:text-xl text-muted mb-10 leading-relaxed"
             >
-              We are a creative production studio specializing in video, audio recording, and graphic design for recording artists, creators, and businesses.
+              We are a creative production studio specializing in video, audio, and digital design for artists, businesses, and our local community.
             </motion.p>
           </div>
           
@@ -264,31 +250,57 @@ export default function App() {
         className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full"
       >
         <div className="mb-16 md:mb-24">
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">What we do.</h2>
-          <p className="max-w-2xl text-muted text-lg">
-            From the recording booth to the final cut, we provide end-to-end creative services to make you stand out.
-          </p>
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-display text-4xl md:text-5xl font-bold mb-4"
+          >
+            What we do.
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="max-w-2xl text-muted text-lg"
+          >
+            From the recording booth to the final cut, we provide end-to-end creative services for artists, families, and businesses.
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {/* Service 1 */}
-          <div className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300"
+          >
             <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
               <Video size={28} />
             </div>
-            <h3 className="font-display text-2xl font-bold mb-3">Video Production</h3>
+            <h3 className="font-display text-2xl font-bold mb-3">Video & Film</h3>
             <p className="text-muted leading-relaxed mb-6">
-              Music videos, promotional content, and corporate visuals shot and edited to capture your unique energy.
+              Professional cinematography and editing for music videos, weddings, quinceneras, and highlight reels.
             </p>
             <ul className="space-y-3 text-sm font-medium text-gray-300">
               <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Music Videos</li>
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Brand Promos</li>
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Live Performances</li>
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Weddings & Quinceneras</li>
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Sports Highlight Reels</li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Service 2 */}
-          <div className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300"
+          >
             <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
               <Headphones size={28} />
             </div>
@@ -301,23 +313,29 @@ export default function App() {
               <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Mixing & Mastering</li>
               <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Podcast Production</li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Service 3 */}
-          <div className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="bg-[#171717] border-thin rounded-2xl p-8 hover:border-accent transition-colors duration-300"
+          >
             <div className="w-14 h-14 bg-[#262626] rounded-xl flex items-center justify-center mb-8 text-accent">
               <Palette size={28} />
             </div>
-            <h3 className="font-display text-2xl font-bold mb-3">Graphic Design</h3>
+            <h3 className="font-display text-2xl font-bold mb-3">Design & Digital</h3>
             <p className="text-muted leading-relaxed mb-6">
-              Album art, brand identity, and visual assets that make your project look as good as it sounds.
+              Album art, branding, website design, and personal blogs that make your project look as good as it sounds.
             </p>
             <ul className="space-y-3 text-sm font-medium text-gray-300">
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Cover Art</li>
               <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Logo & Branding</li>
-              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Social Media Assets</li>
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Website Design</li>
+              <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-accent"></div> Personal Blogs</li>
             </ul>
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
@@ -547,17 +565,17 @@ export default function App() {
                 <span className="font-display font-bold text-xl tracking-tight">ROMG</span>
               </div>
               <p className="text-muted max-w-sm leading-relaxed text-sm">
-                Your go-to creative studio for video production, audio engineering, and graphic design. Built for artists and brands.
+                Your go-to creative studio for video production, audio engineering, and digital design. Built for artists, families, and brands.
               </p>
             </div>
             
             <div>
               <h4 className="font-bold mb-4">Services</h4>
               <ul className="space-y-3 text-muted text-sm">
-                <li><a href="#" className="hover:text-accent transition-colors">Video Production</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">Video & Film</a></li>
                 <li><a href="#" className="hover:text-accent transition-colors">Studio Recording</a></li>
-                <li><a href="#" className="hover:text-accent transition-colors">Mixing & Mastering</a></li>
-                <li><a href="#" className="hover:text-accent transition-colors">Graphic Design</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">Web & Graphic Design</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">Community Projects</a></li>
               </ul>
             </div>
           </div>
