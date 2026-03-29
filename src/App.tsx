@@ -55,42 +55,56 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col items-center"
         >
-          <div className="overflow-hidden">
-            <motion.h1 
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] tracking-tighter leading-[0.85] uppercase"
-            >
-              REAL
-            </motion.h1>
-          </div>
-          <div className="overflow-hidden">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-8"
+          >
+            <img 
+              src="https://lh3.googleusercontent.com/d/12JmTZZ-ufQ9DONLckT_J6Vhl3VEV3mKV" 
+              alt="Real One Media Group Logo" 
+              className="h-24 md:h-32 w-auto"
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+
+          <div className="overflow-hidden py-2 px-4">
             <motion.h1 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] tracking-tighter leading-[0.85] uppercase"
+              className="font-display text-[clamp(4rem,20vw,12rem)] md:text-[clamp(6rem,18vw,16rem)] tracking-tighter leading-[0.9] uppercase"
             >
-              ONE
+              REAL
             </motion.h1>
           </div>
-          <div className="overflow-hidden">
+          <div className="overflow-hidden py-2 px-4">
             <motion.h1 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] tracking-tighter leading-[0.85] uppercase"
+              className="font-display text-[clamp(4rem,20vw,12rem)] md:text-[clamp(6rem,18vw,16rem)] tracking-tighter leading-[0.9] uppercase"
             >
-              MEDIA
+              ONE
             </motion.h1>
           </div>
-          <div className="overflow-hidden">
+          <div className="overflow-hidden py-2 px-4">
             <motion.h1 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[15vw] md:text-[12vw] tracking-tighter leading-[0.85] uppercase text-accent"
+              className="font-display text-[clamp(4rem,20vw,12rem)] md:text-[clamp(6rem,18vw,16rem)] tracking-tighter leading-[0.9] uppercase"
+            >
+              MEDIA
+            </motion.h1>
+          </div>
+          <div className="overflow-hidden py-2 px-4">
+            <motion.h1 
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-[clamp(4rem,20vw,12rem)] md:text-[clamp(6rem,18vw,16rem)] tracking-tighter leading-[0.9] uppercase text-accent"
             >
               GROUP
             </motion.h1>
@@ -276,14 +290,16 @@ export default function App() {
         {/* Navigation */}
         <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-[#0A0A0A]/95 backdrop-blur-md border-b-thin py-4' : 'bg-transparent py-6'}`}>
           <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-accent rounded-md flex items-center justify-center">
-                <span className="font-display font-bold text-[#0A0A0A] text-xl leading-none">R</span>
-              </div>
-              <span className="font-display font-bold text-xl tracking-tight">ROMG</span>
+            <div className="flex items-center">
+              <img 
+                src="https://lh3.googleusercontent.com/d/12JmTZZ-ufQ9DONLckT_J6Vhl3VEV3mKV" 
+                alt="Real One Media Group Logo" 
+                className="h-12 w-auto"
+                referrerPolicy="no-referrer"
+              />
             </div>
             
-            <div className="hidden md:flex gap-8 text-sm font-medium items-center">
+            <div className="hidden md:flex gap-4 text-sm font-medium items-center">
               <a href="#services" className="hover:text-accent transition-colors duration-300">Services</a>
               <a href="#work" className="hover:text-accent transition-colors duration-300">Our Work</a>
               <a href="#studio" className="hover:text-accent transition-colors duration-300">The Studio</a>
@@ -766,11 +782,13 @@ export default function App() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
             <div className="md:col-span-2">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-accent rounded-md flex items-center justify-center">
-                  <span className="font-display font-bold text-[#0A0A0A] text-xl leading-none">R</span>
-                </div>
-                <span className="font-display font-bold text-xl tracking-tight">ROMG</span>
+              <div className="flex items-center mb-4">
+                <img 
+                  src="https://lh3.googleusercontent.com/d/12JmTZZ-ufQ9DONLckT_J6Vhl3VEV3mKV" 
+                  alt="Real One Media Group Logo" 
+                  className="h-10 w-auto"
+                  referrerPolicy="no-referrer"
+                />
               </div>
               <p className="text-muted max-w-sm leading-relaxed text-sm">
                 Your go-to creative studio for video production, audio engineering, and digital design. Built for artists, families, and brands.
