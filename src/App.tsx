@@ -38,18 +38,12 @@ const testimonials = [
   }
 ];
 
-const heroImages = [
-  "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=2500&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=2500&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2500&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=2500&auto=format&fit=crop"
-];
+const heroImage = "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=2500&auto=format&fit=crop";
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [currentHeroImage, setCurrentHeroImage] = useState(0);
 
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -67,17 +61,8 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
-
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-  const y2 = useTransform(scrollY, [0, 500], [0, 100]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
@@ -126,64 +111,19 @@ export default function App() {
       <header ref={heroRef} className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden">
         {/* Background Visuals */}
         <div className="absolute inset-0 z-0">
-          <AnimatePresence mode="wait">
-            <motion.div 
-              key={currentHeroImage}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full"
-            >
-              <motion.img 
-                style={{ y: y1 }}
-                animate={{ 
-                  scale: [1, 1.05, 1],
-                }}
-                transition={{ 
-                  duration: 20, 
-                  repeat: Infinity, 
-                  ease: "linear" 
-                }}
-                src={heroImages[currentHeroImage]} 
-                alt="Creative Studio Background" 
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-            </motion.div>
-          </AnimatePresence>
+          <div className="absolute inset-0 w-full h-full opacity-50">
+            <img 
+              src={heroImage} 
+              alt="Creative Studio Background" 
+              className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/70 via-[#0A0A0A]/40 to-[#0A0A0A]"></div>
           
-          {/* Animated Blobs */}
-          <motion.div 
-            style={{ y: y2 }}
-            animate={{ 
-              scale: [1, 1.2, 1],
-              x: [0, 50, 0],
-              y: [0, -30, 0],
-            }}
-            transition={{ 
-              duration: 10, 
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute top-1/4 -left-20 w-96 h-96 bg-accent/10 rounded-full blur-[120px]"
-          />
-          <motion.div 
-            style={{ y: y1 }}
-            animate={{ 
-              scale: [1, 1.3, 1],
-              x: [0, -40, 0],
-              y: [0, 60, 0],
-            }}
-            transition={{ 
-              duration: 12, 
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1
-            }}
-            className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px]"
-          />
+          {/* Background Blobs */}
+          <div className="absolute top-1/4 -left-20 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
+          <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px]" />
         </div>
 
         <motion.div style={{ opacity }} className="relative z-10 max-w-5xl mx-auto w-full">
