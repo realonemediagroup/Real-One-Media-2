@@ -181,24 +181,27 @@ const heroImage = "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?
 
 const MarqueeCarousel = () => {
   const images = [
-    "https://drive.google.com/uc?id=1B2-Lr3pkM2FK4N4o1yv5CLNF_SYgcyDR",
-    "https://drive.google.com/uc?id=12x7GByz3ADqP2Mrb7Lhca00jeYUaldDn",
-    "https://drive.google.com/uc?id=1I0Rp3sQgwME_M0uxNGGtxfcNUmL2q2Lb",
-    "https://drive.google.com/uc?id=12p1ltn7Pw-jLiPgJb0PfMyVmdSzgon6G",
-    "https://drive.google.com/uc?id=1_3qwhrgl-UGCTxRCPts4A8joNgpCw0Ag",
-    "https://drive.google.com/uc?id=1tGV2nsu4glHPaAsgs2SHwga9E5d1BY_u",
-    "https://drive.google.com/uc?id=1OI0rD3oVmDpaqz0OkKc1WnfzeumvON3D",
-    "https://drive.google.com/uc?id=1BzpzSV2UTNrGJ4SnF-bZEcNE6Gj6IM5L",
-    "https://drive.google.com/uc?id=1Dz9oF9g2D0cFICYahwIbvl8O-hyFxjku",
-    "https://drive.google.com/uc?id=1106hu4CXPcqcoYEUDCqobsTs1VTrl9bG",
-    "https://drive.google.com/uc?id=1ZjAk6qk3RvtmEnzuwhcre-nYigu1Xsit",
-    "https://drive.google.com/uc?id=1bW4Q9Z4AHb4sV58diPQN-cd6qAstEr6i",
-    "https://drive.google.com/uc?id=1kgrAUP0ij-nXfh7I4T9m919TTDkwKCpZ",
-    "https://drive.google.com/uc?id=11W6YEJh4VaX2ETB_aDg2CZkDcilrmnpQ",
-    "https://drive.google.com/uc?id=1X_OE5be-Xznh5Xd5CWmJOxV32kli1gIW",
-    "https://drive.google.com/uc?id=1CYxUYgpbG9Xo3UhkNm-18E5JBH5aLVcy",
-    "https://drive.google.com/uc?id=1zBoZBoSy-0DQOX1cD8nXMeXwgBEfB2N1"
-  ];
+    "1B2-Lr3pkM2FK4N4o1yv5CLNF_SYgcyDR",
+    "12x7GByz3ADqP2Mrb7Lhca00jeYUaldDn",
+    "1I0Rp3sQgwME_M0uxNGGtxfcNUmL2q2Lb",
+    "12p1ltn7Pw-jLiPgJb0PfMyVmdSzgon6G",
+    "1_3qwhrgl-UGCTxRCPts4A8joNgpCw0Ag",
+    "1tGV2nsu4glHPaAsgs2SHwga9E5d1BY_u",
+    "1OI0rD3oVmDpaqz0OkKc1WnfzeumvON3D",
+    "1BzpzSV2UTNrGJ4SnF-bZEcNE6Gj6IM5L",
+    "1Dz9oF9g2D0cFICYahwIbvl8O-hyFxjku",
+    "1106hu4CXPcqcoYEUDCqobsTs1VTrl9bG",
+    "1ZjAk6qk3RvtmEnzuwhcre-nYigu1Xsit",
+    "1bW4Q9Z4AHb4sV58diPQN-cd6qAstEr6i",
+    "1kgrAUP0ij-nXfh7I4T9m919TTDkwKCpZ",
+    "11W6YEJh4VaX2ETB_aDg2CZkDcilrmnpQ",
+    "1X_OE5be-Xznh5Xd5CWmJOxV32kli1gIW",
+    "1CYxUYgpbG9Xo3UhkNm-18E5JBH5aLVcy",
+    "1zBoZBoSy-0DQOX1cD8nXMeXwgBEfB2N1"
+  ].map(id => `https://lh3.googleusercontent.com/d/${id}`);
+
+  // Calculate total width for a perfect loop: 17 images * (256px width + 24px gap) = 4760px
+  const totalWidth = 17 * 280;
 
   return (
     <div className="relative overflow-hidden py-10 mb-16 select-none">
@@ -208,23 +211,23 @@ const MarqueeCarousel = () => {
       
       <motion.div 
         className="flex gap-6 whitespace-nowrap"
-        animate={{ x: [0, -2400] }}
+        animate={{ x: [0, -totalWidth] }}
         transition={{ 
-          duration: 60, 
+          duration: 40, 
           repeat: Infinity, 
           ease: "linear" 
         }}
       >
-        {[...images, ...images, ...images].map((src, idx) => (
+        {[...images, ...images].map((src, idx) => (
           <div 
             key={idx} 
-            className="w-64 h-40 flex-shrink-0 rounded-xl overflow-hidden border border-white/5 bg-[#171717] transition-all duration-500 hover:border-accent/50 group"
+            className="w-64 h-64 flex-shrink-0 rounded-xl overflow-hidden border border-white/5 bg-[#171717] transition-all duration-500 hover:border-accent/50 group"
           >
             <img 
               src={src} 
               alt={`Project Thumbnail ${idx}`} 
-              className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
-              referrerPolicy="no-referrer"
+              className="w-full h-full object-contain group-hover:scale-110 transition-all duration-700"
+              loading="lazy"
             />
           </div>
         ))}
