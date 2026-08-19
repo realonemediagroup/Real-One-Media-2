@@ -5,6 +5,9 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import GeminiChat from './components/GeminiChat';
 
+import dannyImage from './assets/DannyHeadshot-small.jpg';
+import robImage from './assets/RobHeadshot-small.jpg';
+
 const testimonials = [
   {
     id: 5,
@@ -558,7 +561,7 @@ export default function App() {
               >
                 <div className="w-full h-full rounded-full overflow-hidden border-[3px] border-accent/20 bg-[#171717]">
                   <img 
-                    src="/DannyHeadshot-small.jpg" 
+                    src={dannyImage} 
                     alt="Danny - Digital Media Specialist" 
                     className="w-full h-full object-cover object-top scale-[1.4] grayscale hover:grayscale-0 transition-all duration-700"
                     style={{ height: '289px', paddingTop: '0px', marginTop: '-71px' }}
@@ -594,7 +597,7 @@ export default function App() {
               >
                 <div className="w-full h-full rounded-full overflow-hidden border-[3px] border-accent/20 bg-[#171717]">
                   <img 
-                    src="/RobHeadshot-small.jpg" 
+                    src={robImage} 
                     alt="Rob - Digital Media Specialist" 
                     className="w-full h-full object-cover scale-[1.4] object-top grayscale hover:grayscale-0 transition-all duration-700"
                   />
