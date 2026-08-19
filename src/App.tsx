@@ -558,7 +558,7 @@ export default function App() {
               >
                 <div className="w-full h-full rounded-full overflow-hidden border-[3px] border-accent/20 bg-[#171717]">
                   <img 
-                    src="/DannyHeadshot.jpg" 
+                    src="/DannyHeadshot-small.jpg" 
                     alt="Danny - Digital Media Specialist" 
                     className="w-full h-full object-cover object-top scale-[1.4] grayscale hover:grayscale-0 transition-all duration-700"
                     style={{ height: '289px', paddingTop: '0px', marginTop: '-71px' }}
@@ -594,7 +594,7 @@ export default function App() {
               >
                 <div className="w-full h-full rounded-full overflow-hidden border-[3px] border-accent/20 bg-[#171717]">
                   <img 
-                    src="/RobHeadshot.jpg" 
+                    src="/RobHeadshot-small.jpg" 
                     alt="Rob - Digital Media Specialist" 
                     className="w-full h-full object-cover scale-[1.4] object-top grayscale hover:grayscale-0 transition-all duration-700"
                   />
