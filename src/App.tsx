@@ -5,8 +5,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import GeminiChat from './components/GeminiChat';
 
-import dannyImage from './assets/DannyHeadshot-small.jpg';
-import robImage from './assets/RobHeadshot-small.jpg';
+import dannyImage from './assets/DannyProfile-v2.jpg';
+import robImage from './assets/RobProfile-v2.jpg';
 
 const testimonials = [
   {
