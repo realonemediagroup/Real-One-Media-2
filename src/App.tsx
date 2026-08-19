@@ -5,159 +5,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import GeminiChat from './components/GeminiChat';
 
-const Preloader = ({ onComplete }: { onComplete: () => void }) => {
-  const [progress, setProgress] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
-
-  useEffect(() => {
-    if (!hasStarted) return;
-
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(onComplete, 400);
-          return 100;
-        }
-        return prev + 1;
-      });
-    }, 15);
-    return () => clearInterval(interval);
-  }, [onComplete, hasStarted]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed inset-0 z-[100] bg-[#0A0A0A] flex flex-col items-center justify-center overflow-hidden"
-    >
-      {/* Immersive Background Video */}
-      <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover opacity-40 scale-105"
-        >
-          <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27dc36990695c1d63897970d6447996958d0a08&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-transparent to-[#0A0A0A]"></div>
-        <div className="absolute inset-0 bg-[#0A0A0A]/20"></div>
-      </div>
-
-      {/* Massive Stacked Text */}
-      <div className="relative z-10 w-full px-6 flex flex-col items-center">
-        <motion.div 
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center"
-        >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-8"
-          >
-            <img 
-              src="https://lh3.googleusercontent.com/d/12JmTZZ-ufQ9DONLckT_J6Vhl3VEV3mKV" 
-              alt="Real One Media Group Logo" 
-              className="h-24 md:h-32 w-auto"
-              referrerPolicy="no-referrer"
-            />
-          </motion.div>
-
-          <div className="overflow-hidden py-2 px-4">
-            <motion.h1 
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[clamp(4rem,20vw,12rem)] md:text-[clamp(6rem,18vw,16rem)] tracking-tighter leading-[0.9] uppercase"
-            >
-              REAL
-            </motion.h1>
-          </div>
-          <div className="overflow-hidden py-2 px-4">
-            <motion.h1 
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[clamp(4rem,20vw,12rem)] md:text-[clamp(6rem,18vw,16rem)] tracking-tighter leading-[0.9] uppercase"
-            >
-              ONE
-            </motion.h1>
-          </div>
-          <div className="overflow-hidden py-2 px-4">
-            <motion.h1 
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[clamp(4rem,20vw,12rem)] md:text-[clamp(6rem,18vw,16rem)] tracking-tighter leading-[0.9] uppercase"
-            >
-              MEDIA
-            </motion.h1>
-          </div>
-          <div className="overflow-hidden py-2 px-4">
-            <motion.h1 
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[clamp(4rem,20vw,12rem)] md:text-[clamp(6rem,18vw,16rem)] tracking-tighter leading-[0.9] uppercase text-accent"
-            >
-              GROUP
-            </motion.h1>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Interaction Layer */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 w-full flex flex-col items-center">
-        <AnimatePresence mode="wait">
-          {!hasStarted ? (
-            <motion.button
-              key="start-button"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              onClick={() => setHasStarted(true)}
-              className="group relative px-10 py-4 overflow-hidden rounded-full border border-white/10 bg-white/5 backdrop-blur-md transition-all hover:border-accent hover:scale-105 active:scale-95"
-            >
-              <span className="relative z-10 font-display font-bold tracking-[0.2em] uppercase text-xs text-white group-hover:text-accent transition-colors">
-                Initialize Experience
-              </span>
-              <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </motion.button>
-          ) : (
-            <motion.div
-              key="progress-info"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center gap-4"
-            >
-              <span className="font-mono text-[10px] tracking-[0.3em] text-muted uppercase">Initializing</span>
-              <span className="font-mono text-[10px] font-bold text-accent">{progress}%</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Full-width Bottom Progress Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-white/5">
-        <motion.div 
-          className="h-full bg-accent shadow-[0_0_15px_rgba(0,207,255,0.5)]"
-          initial={{ width: "0%" }}
-          animate={{ width: `${progress}%` }}
-          transition={{ ease: "linear" }}
-        />
-      </div>
-    </motion.div>
-  );
-};
-
 const testimonials = [
   {
     id: 5,
@@ -251,7 +98,6 @@ const MarqueeCarousel = () => {
 };
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -278,13 +124,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-[var(--color-accent)] selection:text-white">
-      <AnimatePresence mode="wait">
-        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
-      </AnimatePresence>
-
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: isLoading ? 0 : 1 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* Navigation */}
@@ -302,6 +144,7 @@ export default function App() {
             <div className="hidden md:flex gap-4 text-sm font-medium items-center">
               <a href="#services" className="hover:text-accent transition-colors duration-300">Services</a>
               <a href="#work" className="hover:text-accent transition-colors duration-300">Our Work</a>
+              <a href="#about" className="hover:text-accent transition-colors duration-300">About Us</a>
               <a href="#studio" className="hover:text-accent transition-colors duration-300">The Studio</a>
               <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill inline-block">
                 Let's Work
@@ -329,6 +172,7 @@ export default function App() {
             >
               <a href="#services" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>Services</a>
               <a href="#work" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>Our Work</a>
+              <a href="#about" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>About Us</a>
               <a href="#studio" className="font-display text-3xl font-bold hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>The Studio</a>
               <a href="https://forms.gle/aebU2yoRQqXRUdkP9" target="_blank" rel="noopener noreferrer" className="nav-pill mt-4 inline-block text-center" onClick={() => setIsMenuOpen(false)}>
                 Let's Work
@@ -359,7 +203,7 @@ export default function App() {
         <motion.div style={{ opacity }} className="relative z-10 max-w-5xl mx-auto w-full">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
-            animate={!isLoading ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
             className="inline-block bg-[#171717] border-thin rounded-full px-4 py-1.5 mb-8"
           >
@@ -372,7 +216,7 @@ export default function App() {
           <div className="overflow-hidden">
             <motion.h1 
               initial={{ opacity: 0, y: 100 }}
-              animate={!isLoading ? { opacity: 1, y: 0 } : {}}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="font-display text-5xl md:text-7xl lg:text-8xl tracking-tight mb-6 leading-[1.1]"
             >
@@ -386,7 +230,7 @@ export default function App() {
           <div className="overflow-hidden">
             <motion.p 
               initial={{ opacity: 0, y: 50 }}
-              animate={!isLoading ? { opacity: 1, y: 0 } : {}}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-2xl text-lg md:text-xl text-muted mb-10 leading-relaxed"
             >
@@ -396,7 +240,7 @@ export default function App() {
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
-            animate={!isLoading ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row gap-4"
           >
@@ -677,6 +521,102 @@ export default function App() {
                 aria-label={`Go to testimonial ${idx + 1}`}
               />
             ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* About Us Section */}
+      <motion.section 
+        id="about" 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="py-24 md:py-32 px-6 md:px-12 bg-[#0A0A0A] border-t-thin"
+      >
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center mb-24"
+          >
+            <h2 className="font-display text-4xl md:text-5xl mb-4">Who We Are</h2>
+            <p className="text-muted text-lg max-w-2xl mx-auto uppercase tracking-wide">The digital media specialists behind the lens and the mix.</p>
+          </motion.div>
+
+          <div className="flex flex-col gap-24">
+            {/* Danny Profile */}
+            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9, x: -30 }}
+                whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="w-48 md:w-72 aspect-square shrink-0"
+              >
+                <div className="w-full h-full rounded-full overflow-hidden border-[3px] border-accent/20 bg-[#171717]">
+                  <img 
+                    src="/DannyHeadshot.jpg" 
+                    alt="Danny - Digital Media Specialist" 
+                    className="w-full h-full object-cover object-top scale-[1.4] grayscale hover:grayscale-0 transition-all duration-700"
+                    style={{ height: '289px', paddingTop: '0px', marginTop: '-71px' }}
+                  />
+                </div>
+              </motion.div>
+              <motion.div 
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="flex-1 text-center md:text-left"
+              >
+                <h3 className="font-display text-3xl md:text-4xl mb-2">Danny</h3>
+                <p className="text-accent text-sm font-bold tracking-wider uppercase mb-6">Digital Media Specialist</p>
+                <p className="text-muted leading-relaxed text-lg mb-4">
+                  Danny is our digital media specialist who specializes in <span className="text-white font-semibold">digital media storytelling</span>. With <span className="text-white font-semibold">7 years of experience</span>, he has filmed various compelling documentaries, striking music videos, and vibrant community events.
+                </p>
+                <p className="text-muted leading-relaxed text-lg">
+                  His primary rig is the <span className="text-white font-semibold">Sony Alpha a7iv</span>, equipped with top-tier stabilizers, professional lighting, pristine microphones, and breathtaking drone photography capabilities. In the editing room, Danny crafts his visual narratives using <span className="text-white font-semibold">Final Cut Pro</span> and <span className="text-white font-semibold">Photoshop</span>.
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Rob Profile */}
+            <div className="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-16">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9, x: 30 }}
+                whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="w-48 md:w-72 aspect-square shrink-0"
+              >
+                <div className="w-full h-full rounded-full overflow-hidden border-[3px] border-accent/20 bg-[#171717]">
+                  <img 
+                    src="/RobHeadshot.jpg" 
+                    alt="Rob - Digital Media Specialist" 
+                    className="w-full h-full object-cover scale-[1.4] object-top grayscale hover:grayscale-0 transition-all duration-700"
+                  />
+                </div>
+              </motion.div>
+              <motion.div 
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="flex-1 text-center md:text-left"
+              >
+                <h3 className="font-display text-3xl md:text-4xl mb-2">Rob</h3>
+                <p className="text-accent text-sm font-bold tracking-wider uppercase mb-6">Digital Media Specialist</p>
+                <p className="text-muted leading-relaxed text-lg mb-4">
+                  Rob is a versatile digital media specialist with a deep background in <span className="text-white font-semibold">audio/visual, website, graphic, motion, and photo editing and design</span>.
+                </p>
+                <p className="text-muted leading-relaxed text-lg">
+                  Bringing over <span className="text-white font-semibold">15 years of industry experience</span> to the table, Rob commands an elite toolkit. He uses <span className="text-white font-semibold">Adobe Photoshop</span>, <span className="text-white font-semibold">Final Cut Pro</span>, <span className="text-white font-semibold">After Effects</span>, and <span className="text-white font-semibold">REAPER</span> for pristine audio production, ensuring every project looks and sounds spectacular.
+                </p>
+              </motion.div>
+            </div>
           </div>
         </div>
       </motion.section>
