@@ -4,9 +4,8 @@ import Map, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import GeminiChat from './components/GeminiChat';
-
-import dannyImage from './assets/DannyProfile-v2.jpg';
-import robImage from './assets/RobProfile-v2.jpg';
+import dannyImg from './assets/danny copy.jpg';
+import robImg from './assets/rob copy.jpg';
 
 const testimonials = [
   {
@@ -561,7 +560,7 @@ export default function App() {
               >
                 <div className="w-full h-full rounded-full overflow-hidden border-[3px] border-accent/20 bg-[#171717]">
                   <img 
-                    src={dannyImage} 
+                    src={dannyImg} 
                     alt="Danny - Digital Media Specialist" 
                     className="w-full h-full object-cover object-top scale-[1.4] grayscale hover:grayscale-0 transition-all duration-700"
                     style={{ height: '289px', paddingTop: '0px', marginTop: '-71px' }}
@@ -597,7 +596,7 @@ export default function App() {
               >
                 <div className="w-full h-full rounded-full overflow-hidden border-[3px] border-accent/20 bg-[#171717]">
                   <img 
-                    src={robImage} 
+                    src={robImg} 
                     alt="Rob - Digital Media Specialist" 
                     className="w-full h-full object-cover scale-[1.4] object-top grayscale hover:grayscale-0 transition-all duration-700"
                   />
