@@ -562,8 +562,8 @@ export default function App() {
                   <img 
                     src={dannyImg} 
                     alt="Danny - Digital Media Specialist" 
-                    className="w-full h-full object-cover object-top scale-[1.4] grayscale hover:grayscale-0 transition-all duration-700"
-                    style={{ height: '289px', paddingTop: '0px', marginTop: '-71px' }}
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    style={{ transform: 'scale(1.85)', transformOrigin: 'center 20%', width: '232.2px' }}
                   />
                 </div>
               </motion.div>
@@ -598,7 +598,8 @@ export default function App() {
                   <img 
                     src={robImg} 
                     alt="Rob - Digital Media Specialist" 
-                    className="w-full h-full object-cover scale-[1.4] object-top grayscale hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    style={{ transform: 'scale(1.4)', transformOrigin: 'center 15%', marginLeft: '14px', marginTop: '16px', marginRight: '0px' }}
                   />
                 </div>
               </motion.div>
